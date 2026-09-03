@@ -19,7 +19,7 @@ import {
 const LISTINGS: Record<string, {
   title: string;
   company: string;
-  logo: string;
+  logo?: string;
   location: string;
   salary: string;
   type: string;
@@ -33,14 +33,13 @@ const LISTINGS: Record<string, {
 }> = {
   "job-1": {
     title: "Senior Logistics Driver",
-    company: "DHL",
-    logo: "/images/logos/dhl.svg",
+    company: "LogiStream Europe",
     location: "Hamburg, Germany",
     salary: "€45,000 - €55,000 / Year",
     type: "Full-Time",
     posted: "2 days ago",
     description:
-      "We are seeking a highly skilled and safety-conscious Senior Logistics Driver to join DHL's European fleet operations. In this role, you will be responsible for the long-haul transport of goods across international borders, ensuring timely delivery and maintaining the highest institutional standards of vehicle care and road safety.",
+      "We are seeking a highly skilled and safety-conscious Senior Logistics Driver to join LogiStream Europe's fleet operations. In this role, you will be responsible for the long-haul transport of goods across international borders, ensuring timely delivery and maintaining the highest institutional standards of vehicle care and road safety.",
     requirements: [
       "Certified PADTI Professional (CDL Class A Equivalent)",
       "Minimum 3 years of articulated vehicle experience",
@@ -80,7 +79,11 @@ export default function OpportunityDetailPage({ params }: { params: Promise<{ id
           <div className="mb-12 flex flex-col justify-between gap-6 border-b border-border pb-10 md:flex-row md:items-end">
             <div>
               <div className="mb-4 flex items-center gap-4">
-                <Image src={job.logo} alt={job.company} width={72} height={28} className="h-7 w-auto object-contain" />
+                {job.logo ? (
+                  <Image src={job.logo} alt={job.company} width={72} height={28} className="h-7 w-auto object-contain" />
+                ) : (
+                  <span className="font-headline text-lg text-ink">{job.company}</span>
+                )}
                 <span className="font-body text-[10px] font-bold uppercase tracking-widest text-accent">{job.type}</span>
                 <span className="flex items-center gap-1 font-body text-xs text-muted-foreground">
                   <Clock className="h-3 w-3" /> {job.posted}

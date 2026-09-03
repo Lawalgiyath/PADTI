@@ -31,10 +31,9 @@ const TABS = [
 ] as const;
 
 const jobs = [
-  { id: "job-1", title: "Senior Logistics Driver", company: "DHL", logo: "/images/logos/dhl.svg", location: "Hamburg, DE", salary: "€45,000 - €55,000", type: "Full-Time" },
-  { id: "job-2", title: "Articulated Fleet Operator", company: "Maersk", logo: "/images/logos/maersk.svg", location: "Rotterdam, NL", salary: "€48,000 - €58,000", type: "Full-Time" },
-  { id: "job-3", title: "International Line-Haul Driver", company: "DHL", logo: "/images/logos/dhl.svg", location: "Lagos, NG", salary: "₦4,200,000 / yr", type: "Full-Time" },
-  { id: "job-4", title: "Port-to-Depot Container Driver", company: "Maersk", logo: "/images/logos/maersk.svg", location: "Tema, GH", salary: "$28,000 - $34,000", type: "Contract" },
+  { id: "job-1", title: "Senior Logistics Driver", company: "LogiStream Europe", logo: undefined, location: "Hamburg, DE", salary: "€45,000 - €55,000", type: "Full-Time" },
+  { id: "job-2", title: "Articulated Fleet Operator", company: "Global Trans", logo: undefined, location: "Toronto, CA", salary: "$60,000 - $75,000", type: "Full-Time" },
+  { id: "job-3", title: "Logistics Trainee (Paid)", company: "Express Way", logo: undefined, location: "London, UK", salary: "€2,400/mo", type: "Internship" },
 ];
 
 const talent = [
@@ -42,18 +41,18 @@ const talent = [
 ];
 
 const insurancePlans = [
-  { title: "Score-Based Liability Cover", provider: "AXA", logo: "/images/logos/axa.svg", scoreImpact: "High scorers save up to 40%", limit: "₦500M" },
-  { title: "Cargo & Cross-Border Shield", provider: "AXA", logo: "/images/logos/axa.svg", scoreImpact: "Pre-screened talent bonus", limit: "Cargo focused" },
+  { title: "Score-Based Liability", provider: "AXA Institutional", logo: "/images/logos/axa.svg", scoreImpact: "High Scorers Save 40%", limit: "€5M" },
+  { title: "Fleet Integrity Shield", provider: "Allianz Global", logo: undefined, scoreImpact: "Pre-Screened Talent Bonus", limit: "Cargo Focused" },
 ];
 
 const equipment = [
-  { name: "Scania R-Series (Euro 6)", provider: "Scania", image: "/images/equipment/scania-r-series.jpg", price: "From €125,000", condition: "New" },
-  { name: "Mercedes-Benz Actros", provider: "Mercedes-Benz", image: "/images/equipment/mercedes-actros.jpg", price: "Contact for Lease", condition: "Available" },
+  { name: "Scania R-Series (Euro 6)", provider: "Scania Global", image: "/images/equipment/scania-r-series.jpg", price: "From €125,000", condition: "New" },
+  { name: "Mercedes-Benz Actros Electric", provider: "Daimler Truck", image: "/images/equipment/mercedes-actros.jpg", price: "Contact for Lease", condition: "Available" },
 ];
 
 const services = [
-  { title: "Mobile Articulated Maintenance", provider: "PADTI Service Network", rating: 4.9, tags: ["24/7 Support"] },
-  { title: "Digital Compliance Audit", provider: "PADTI Institutional", rating: 4.8, tags: ["FRSC Standards"] },
+  { title: "Mobile Articulated Maintenance", provider: "FleetFix Global", rating: 4.9, tags: ["24/7 Support"] },
+  { title: "Digital Compliance Audit", provider: "SafeLogistics Ltd", rating: 4.8, tags: ["Global Standards"] },
 ];
 
 function LogoOrText({ logo, name }: { logo?: string; name: string }) {
@@ -87,7 +86,7 @@ function MarketplaceHubContent() {
             <h1 className="font-headline text-4xl text-ink md:text-6xl">Institutional Marketplace</h1>
           </div>
           <p className="max-w-sm font-body text-sm text-muted-foreground">
-            The hub for real logistics opportunities, talent, and industry assets — connected to PADTI&apos;s
+            The hub for real logistics opportunities, talent, and industry assets, connected to PADTI&apos;s
             verified partner network.
           </p>
         </div>
