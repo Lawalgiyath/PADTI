@@ -1,99 +1,95 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Check, X, User, Calendar, ExternalLink } from "lucide-react";
 
-export default function AdminApplicationsPage() {
-  const applications = [
-    { 
-      name: "Alice Johnson", 
-      program: "Professional CDL Class A", 
-      date: "Oct 24, 2023", 
-      status: "New",
-      score: "88%",
-      details: "Background check cleared. Medical certificate verified."
-    },
-    { 
-      name: "Mark Stevens", 
-      program: "Advanced Road Safety", 
-      date: "Oct 23, 2023", 
-      status: "Pending",
-      score: "92%",
-      details: "Waiting for secondary ID verification."
-    },
-    { 
-      name: "Elena Rodriguez", 
-      program: "Fleet Management Specialist", 
-      date: "Oct 22, 2023", 
-      status: "Urgent",
-      score: "95%",
-      details: "Scholarship applicant. Fast-track requested."
-    },
-  ];
+const applications = [
+  {
+    name: "Alice Johnson",
+    program: "Professional CDL Class A",
+    date: "Oct 24, 2023",
+    status: "New",
+    score: "88%",
+    details: "Background check cleared. Medical certificate verified.",
+  },
+  {
+    name: "Mark Stevens",
+    program: "Advanced Road Safety",
+    date: "Oct 23, 2023",
+    status: "Pending",
+    score: "92%",
+    details: "Waiting for secondary ID verification.",
+  },
+  {
+    name: "Elena Rodriguez",
+    program: "Fleet Management Specialist",
+    date: "Oct 22, 2023",
+    status: "Urgent",
+    score: "95%",
+    details: "Scholarship applicant. Fast-track requested.",
+  },
+];
 
+export default function AdminApplicationsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-primary mb-2">Platform Applications</h1>
-        <p className="text-muted-foreground">Review and manage institutional applications and student enrollments.</p>
+        <h1 className="mb-2 font-headline text-3xl text-ink">Platform Applications</h1>
+        <p className="font-body text-sm text-muted-foreground">Review and manage institutional applications and student enrollments.</p>
       </div>
 
       <div className="space-y-4">
-        {applications.map((app, idx) => (
-          <Card key={idx} className="border-none shadow-sm overflow-hidden">
-            <CardHeader className="bg-secondary/20 pb-4">
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-3">
-                  <div className="bg-white p-2 rounded-xl shadow-sm">
-                    <User className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{app.name}</CardTitle>
-                    <CardDescription className="flex items-center gap-1">
-                      <Calendar className="h-3 w-3" /> Submitted: {app.date}
-                    </CardDescription>
-                  </div>
+        {applications.map((app) => (
+          <div key={app.name} className="border border-border bg-card">
+            <div className="flex items-start justify-between border-b border-border bg-secondary p-6">
+              <div className="flex items-center gap-3">
+                <div className="bg-card p-2.5 text-primary">
+                  <User className="h-5 w-5" />
                 </div>
-                <Badge variant={app.status === 'Urgent' ? 'destructive' : 'default'} className="rounded-lg">
-                  {app.status}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="md:col-span-2 space-y-4">
-                  <div className="flex gap-8">
-                    <div>
-                      <h4 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Target Program / Type</h4>
-                      <p className="text-sm font-medium">{app.program}</p>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Eligibility Score</h4>
-                      <p className="text-sm font-bold text-green-600">{app.score}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Status Note</h4>
-                    <p className="text-sm text-muted-foreground">{app.details}</p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2 justify-center">
-                  <Button className="bg-primary hover:bg-primary/90 gap-2">
-                    <Check className="h-4 w-4" /> Approve Application
-                  </Button>
-                  <Button variant="outline" className="gap-2">
-                    <X className="h-4 w-4" /> Reject
-                  </Button>
-                  <Button variant="ghost" className="text-xs text-muted-foreground gap-1">
-                    <ExternalLink className="h-3 w-3" /> View Details
-                  </Button>
+                <div>
+                  <h2 className="font-headline text-lg text-ink">{app.name}</h2>
+                  <p className="flex items-center gap-1 font-body text-xs text-muted-foreground">
+                    <Calendar className="h-3 w-3" /> Submitted: {app.date}
+                  </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <span
+                className={`font-body text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 ${
+                  app.status === "Urgent" ? "bg-destructive text-destructive-foreground" : "bg-primary/10 text-primary"
+                }`}
+              >
+                {app.status}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-3">
+              <div className="space-y-4 md:col-span-2">
+                <div className="flex flex-wrap gap-8">
+                  <div>
+                    <h4 className="mb-1 font-body text-xs font-bold uppercase tracking-widest text-primary">Target Program / Type</h4>
+                    <p className="font-body text-sm font-medium text-ink">{app.program}</p>
+                  </div>
+                  <div>
+                    <h4 className="mb-1 font-body text-xs font-bold uppercase tracking-widest text-primary">Eligibility Score</h4>
+                    <p className="font-body text-sm font-bold text-primary">{app.score}</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="mb-1 font-body text-xs font-bold uppercase tracking-widest text-primary">Status Note</h4>
+                  <p className="font-body text-sm text-muted-foreground">{app.details}</p>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center gap-2">
+                <button className="flex items-center justify-center gap-2 bg-sage py-3 font-body text-xs font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+                  <Check className="h-4 w-4" /> Approve Application
+                </button>
+                <button className="flex items-center justify-center gap-2 border border-border py-3 font-body text-xs font-bold uppercase tracking-widest text-ink transition-colors hover:bg-secondary">
+                  <X className="h-4 w-4" /> Reject
+                </button>
+                <button className="flex items-center justify-center gap-1.5 py-2 font-body text-xs font-bold text-primary hover:underline">
+                  <ExternalLink className="h-3 w-3" /> View Details
+                </button>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>

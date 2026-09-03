@@ -1,89 +1,86 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Check, X, Building2, UserCheck, Clock, ExternalLink } from "lucide-react";
+import { Check, X, Building2, Clock, ExternalLink } from "lucide-react";
+
+const requests = [
+  {
+    company: "LogiStream Europe",
+    type: "Premium Partner Application",
+    date: "Oct 24, 2023",
+    status: "Pending",
+    details: "Seeking priority access to graduates in Northern Germany region.",
+  },
+  {
+    company: "Global Heavy Lift",
+    type: "Talent Search API Access",
+    date: "Oct 23, 2023",
+    status: "Review Required",
+    details: "Requesting integration with internal HR software.",
+  },
+  {
+    company: "Swift Express",
+    type: "Internship Program Sponsorship",
+    date: "Oct 22, 2023",
+    status: "Urgent",
+    details: "Applying for the 2024 Winter Graduate Cohort sponsorship.",
+  },
+];
 
 export default function AdminRequestsPage() {
-  const requests = [
-    { 
-      company: "LogiStream Europe", 
-      type: "Premium Partner Application", 
-      date: "Oct 24, 2023", 
-      status: "Pending",
-      details: "Seeking priority access to graduates in Northern Germany region."
-    },
-    { 
-      company: "Global Heavy Lift", 
-      type: "Talent Search API Access", 
-      date: "Oct 23, 2023", 
-      status: "Review Required",
-      details: "Requesting integration with internal HR software."
-    },
-    { 
-      company: "Swift Express", 
-      type: "Internship Program Sponsorship", 
-      date: "Oct 22, 2023", 
-      status: "Urgent",
-      details: "Applying for the 2024 Winter Graduate Cohort sponsorship."
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-primary mb-2">Employer Partnership Requests</h1>
-        <p className="text-muted-foreground">Review and approve corporate partnerships and institutional requests.</p>
+        <h1 className="mb-2 font-headline text-3xl text-ink">Employer Partnership Requests</h1>
+        <p className="font-body text-sm text-muted-foreground">Review and approve corporate partnerships and institutional requests.</p>
       </div>
 
       <div className="space-y-4">
-        {requests.map((req, idx) => (
-          <Card key={idx} className="border-none shadow-sm overflow-hidden">
-            <CardHeader className="bg-secondary/20 pb-4">
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-3">
-                  <div className="bg-white p-2 rounded-xl shadow-sm">
-                    <Building2 className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{req.company}</CardTitle>
-                    <CardDescription className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" /> {req.date}
-                    </CardDescription>
-                  </div>
+        {requests.map((req) => (
+          <div key={req.company} className="border border-border bg-card">
+            <div className="flex items-start justify-between border-b border-border bg-secondary p-6">
+              <div className="flex items-center gap-3">
+                <div className="bg-card p-2.5 text-primary">
+                  <Building2 className="h-5 w-5" />
                 </div>
-                <Badge variant={req.status === 'Urgent' ? 'destructive' : 'default'} className="rounded-lg">
-                  {req.status}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="md:col-span-2 space-y-4">
-                  <div>
-                    <h4 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Request Type</h4>
-                    <p className="text-sm font-medium">{req.type}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Details</h4>
-                    <p className="text-sm text-muted-foreground">{req.details}</p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2 justify-center">
-                  <Button className="bg-primary hover:bg-primary/90 gap-2">
-                    <Check className="h-4 w-4" /> Approve Partnership
-                  </Button>
-                  <Button variant="outline" className="gap-2">
-                    <X className="h-4 w-4" /> Decline
-                  </Button>
-                  <Button variant="ghost" className="text-xs text-muted-foreground gap-1">
-                    <ExternalLink className="h-3 w-3" /> View Company Profile
-                  </Button>
+                <div>
+                  <h2 className="font-headline text-lg text-ink">{req.company}</h2>
+                  <p className="flex items-center gap-1 font-body text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" /> {req.date}
+                  </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <span
+                className={`font-body text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 ${
+                  req.status === "Urgent" ? "bg-destructive text-destructive-foreground" : "bg-primary/10 text-primary"
+                }`}
+              >
+                {req.status}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-3">
+              <div className="space-y-4 md:col-span-2">
+                <div>
+                  <h4 className="mb-1 font-body text-xs font-bold uppercase tracking-widest text-primary">Request Type</h4>
+                  <p className="font-body text-sm font-medium text-ink">{req.type}</p>
+                </div>
+                <div>
+                  <h4 className="mb-1 font-body text-xs font-bold uppercase tracking-widest text-primary">Details</h4>
+                  <p className="font-body text-sm text-muted-foreground">{req.details}</p>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center gap-2">
+                <button className="flex items-center justify-center gap-2 bg-sage py-3 font-body text-xs font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+                  <Check className="h-4 w-4" /> Approve Partnership
+                </button>
+                <button className="flex items-center justify-center gap-2 border border-border py-3 font-body text-xs font-bold uppercase tracking-widest text-ink transition-colors hover:bg-secondary">
+                  <X className="h-4 w-4" /> Decline
+                </button>
+                <button className="flex items-center justify-center gap-1.5 py-2 font-body text-xs font-bold text-primary hover:underline">
+                  <ExternalLink className="h-3 w-3" /> View Company Profile
+                </button>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>

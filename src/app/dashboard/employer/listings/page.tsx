@@ -1,20 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Plus, 
-  Briefcase, 
-  GraduationCap, 
-  MoreVertical, 
-  Truck, 
-  Users, 
-  Clock,
-  MapPin,
-  TrendingUp,
-  FileSearch
-} from "lucide-react";
+import { Plus, Briefcase, GraduationCap, MoreVertical, Truck, Users, Clock, MapPin, TrendingUp, FileSearch } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,131 +8,135 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function EmployerListingsPage() {
-  const listings = [
-    { title: "Senior Logistics Driver", type: "Job", applications: 24, status: "Active", posted: "2d ago", location: "Hamburg, DE" },
-    { title: "Articulated Fleet Intern", type: "Internship", applications: 15, status: "Active", posted: "5d ago", location: "Berlin, DE" },
-    { title: "Long-Haul Specialist", type: "Job", applications: 9, status: "Reviewing", posted: "1w ago", location: "Bonn, DE" },
-  ];
+const listings = [
+  { title: "Senior Logistics Driver", type: "Job", applications: 24, status: "Active", posted: "2d ago", location: "Hamburg, DE" },
+  { title: "Articulated Fleet Intern", type: "Internship", applications: 15, status: "Active", posted: "5d ago", location: "Berlin, DE" },
+  { title: "Long-Haul Specialist", type: "Job", applications: 9, status: "Reviewing", posted: "1w ago", location: "Bonn, DE" },
+];
 
+const talentMatches = [
+  { name: "Sarah M.", score: 95 },
+  { name: "Johnathan D.", score: 92 },
+  { name: "Michael C.", score: 88 },
+];
+
+export default function EmployerListingsPage() {
   return (
     <div className="space-y-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <h1 className="text-3xl font-bold text-primary mb-2 font-headline">My Active Listings</h1>
-          <p className="text-muted-foreground">Manage your job openings and internship placements.</p>
+          <h1 className="mb-2 font-headline text-3xl text-ink">My Active Listings</h1>
+          <p className="font-body text-sm text-muted-foreground">Manage your job openings and internship placements.</p>
         </div>
-        <Button className="bg-accent text-accent-foreground hover:bg-accent/90 gap-2 font-bold py-6 px-6 rounded-xl border-none shadow-lg">
-          <Plus className="h-5 w-5" /> Post New Opportunity
-        </Button>
+        <button className="flex items-center gap-2 bg-sage px-6 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+          <Plus className="h-4 w-4" /> Post New Opportunity
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-4">
-          {listings.map((item, idx) => (
-            <Card key={idx} className="border-none shadow-sm hover:shadow-md transition-all overflow-hidden group">
-              <div className="flex flex-col sm:flex-row sm:items-center p-6 gap-6">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${item.type === 'Job' ? 'bg-primary/10 text-primary' : 'bg-accent/10 text-accent-foreground'}`}>
-                  {item.type === 'Job' ? <Briefcase className="h-6 w-6" /> : <GraduationCap className="h-6 w-6" />}
-                </div>
-                
-                <div className="flex-1 space-y-1">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{item.title}</h3>
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
-                        <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {item.location}</span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {item.posted}</span>
-                      </div>
-                    </div>
-                    <Badge variant={item.status === 'Active' ? 'default' : 'secondary'} className={item.status === 'Active' ? 'bg-green-100 text-green-700 hover:bg-green-100 border-none' : ''}>
-                      {item.status}
-                    </Badge>
-                  </div>
-                </div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="space-y-4 lg:col-span-2">
+          {listings.map((item) => (
+            <div key={item.title} className="flex flex-col gap-6 border border-border bg-card p-6 transition-colors hover:border-primary/40 sm:flex-row sm:items-center">
+              <div className={`flex h-12 w-12 shrink-0 items-center justify-center ${item.type === "Job" ? "bg-primary/10 text-primary" : "bg-accent/10 text-accent"}`}>
+                {item.type === "Job" ? <Briefcase className="h-5 w-5" /> : <GraduationCap className="h-5 w-5" />}
+              </div>
 
-                <div className="flex items-center gap-4 sm:border-l sm:pl-6">
-                  <div className="text-center min-w-[80px]">
-                    <p className="text-2xl font-bold text-primary">{item.applications}</p>
-                    <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Applicants</p>
+              <div className="flex-1">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="font-headline text-lg text-ink">{item.title}</h3>
+                    <div className="mt-1 flex items-center gap-3 font-body text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {item.location}</span>
+                      <span>&middot;</span>
+                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {item.posted}</span>
+                    </div>
                   </div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="rounded-full">
-                        <MoreVertical className="h-5 w-5" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem className="cursor-pointer">View Applicants</DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">Edit Listing</DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer text-destructive">Close Listing</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <span
+                    className={`font-body text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 ${
+                      item.status === "Active" ? "bg-primary/10 text-primary" : "border border-border text-muted-foreground"
+                    }`}
+                  >
+                    {item.status}
+                  </span>
                 </div>
               </div>
-            </Card>
+
+              <div className="flex items-center gap-4 sm:border-l sm:border-border sm:pl-6">
+                <div className="min-w-[70px] text-center">
+                  <p className="font-headline text-2xl text-ink">{item.applications}</p>
+                  <p className="font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Applicants</p>
+                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="p-2 text-muted-foreground transition-colors hover:text-ink">
+                      <MoreVertical className="h-5 w-5" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="rounded-none border-border">
+                    <DropdownMenuItem className="cursor-pointer">View Applicants</DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">Edit Listing</DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer text-destructive">Close Listing</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
           ))}
 
           {listings.length === 0 && (
-            <Card className="border-dashed border-2 bg-transparent">
-              <CardContent className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="bg-secondary p-6 rounded-full mb-6">
-                  <FileSearch className="h-12 w-12 text-primary/40" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">No active listings</h3>
-                <p className="text-muted-foreground max-w-sm mb-8">You haven't posted any opportunities yet. Start recruiting top driver talent today.</p>
-                <Button className="bg-primary hover:bg-primary/90 font-bold px-8">Create Your First Post</Button>
-              </CardContent>
-            </Card>
+            <div className="flex flex-col items-center justify-center border border-dashed border-border px-6 py-20 text-center">
+              <div className="mb-6 rounded-full bg-secondary p-6">
+                <FileSearch className="h-10 w-10 text-primary/40" />
+              </div>
+              <h3 className="mb-2 font-headline text-xl text-ink">No active listings</h3>
+              <p className="mb-8 max-w-sm font-body text-sm text-muted-foreground">
+                You haven&apos;t posted any opportunities yet. Start recruiting top driver talent today.
+              </p>
+              <button className="bg-sage px-8 py-3 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+                Create Your First Post
+              </button>
+            </div>
           )}
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-primary text-white border-none shadow-lg overflow-hidden relative">
-            <div className="absolute -right-8 -bottom-8 opacity-10">
-              <Truck className="h-40 w-40" />
-            </div>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl"><TrendingUp className="h-5 w-5 text-accent" /> Hiring Insights</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-white/70">Total Impressions</span>
-                <span className="font-bold">1,402</span>
+          <div className="relative overflow-hidden bg-ink p-6 text-cream">
+            <Truck className="absolute -bottom-8 -right-8 h-40 w-40 text-cream/5" />
+            <h2 className="relative mb-5 flex items-center gap-2 font-headline text-xl text-cream">
+              <TrendingUp className="h-5 w-5 text-accent" /> Hiring Insights
+            </h2>
+            <div className="relative space-y-3 font-body text-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-cream/60">Total Impressions</span>
+                <span className="font-bold text-cream">1,402</span>
               </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-white/70">Application Rate</span>
+              <div className="flex items-center justify-between">
+                <span className="text-cream/60">Application Rate</span>
                 <span className="font-bold text-accent">+8.4%</span>
               </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-white/70">Average Match Score</span>
-                <span className="font-bold">89%</span>
+              <div className="flex items-center justify-between">
+                <span className="text-cream/60">Average Match Score</span>
+                <span className="font-bold text-cream">89%</span>
               </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full bg-white/10 border-white/20 hover:bg-white/20 text-white border-none font-bold">Download Full Report</Button>
-            </CardFooter>
-          </Card>
+            </div>
+            <button className="relative mt-6 w-full border border-cream/30 py-3 font-body text-xs font-bold uppercase tracking-widest text-cream transition-colors hover:border-cream">
+              Download Full Report
+            </button>
+          </div>
 
-          <Card className="border-none shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base flex items-center gap-2"><Users className="h-4 w-4 text-primary" /> Recent Talent Matches</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {[
-                { name: "Sarah M.", score: 95 },
-                { name: "Johnathan D.", score: 92 },
-                { name: "Michael C.", score: 88 },
-              ].map((match, i) => (
-                <div key={i} className="flex justify-between items-center p-3 bg-secondary/20 rounded-xl">
-                  <span className="text-sm font-semibold">{match.name}</span>
-                  <Badge className="bg-primary text-white text-[10px]">{match.score}% Match</Badge>
+          <div className="border border-border bg-card p-6">
+            <h2 className="mb-4 flex items-center gap-2 font-headline text-base text-ink">
+              <Users className="h-4 w-4 text-primary" /> Recent Talent Matches
+            </h2>
+            <div className="space-y-2">
+              {talentMatches.map((match) => (
+                <div key={match.name} className="flex items-center justify-between bg-secondary px-3 py-2.5">
+                  <span className="font-body text-sm font-semibold text-ink">{match.name}</span>
+                  <span className="bg-primary px-2 py-0.5 font-body text-[10px] font-bold text-primary-foreground">{match.score}% Match</span>
                 </div>
               ))}
-              <Button variant="link" className="w-full text-xs text-primary font-bold">View More in Marketplace</Button>
-            </CardContent>
-          </Card>
+            </div>
+            <button className="mt-4 w-full font-body text-xs font-bold text-primary hover:underline">View More in Marketplace</button>
+          </div>
         </div>
       </div>
     </div>

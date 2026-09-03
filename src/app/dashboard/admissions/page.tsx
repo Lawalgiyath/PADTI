@@ -1,141 +1,121 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { 
-  FileUp, 
-  CheckCircle, 
-  Clock, 
-  AlertCircle,
-  FileText,
-  Download
-} from "lucide-react";
+import { FileUp, CheckCircle, Clock, AlertCircle, FileText, Download } from "lucide-react";
+
+const documents = [
+  { name: "Government ID / Passport", status: "Verified" },
+  { name: "Medical Fitness Certificate", status: "Verified" },
+  { name: "Background Check Authorization", status: "Verified" },
+  { name: "Prior Experience Logs (Optional)", status: "Pending", action: true },
+];
 
 export default function AdmissionsPortal() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-primary mb-2">Admissions Portal</h1>
-        <p className="text-muted-foreground">Manage your enrollment applications and compliance documents.</p>
+        <h1 className="mb-2 font-headline text-3xl text-ink">Admissions Portal</h1>
+        <p className="font-body text-sm text-muted-foreground">Manage your enrollment applications and compliance documents.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-6">
-          <Card className="border-none shadow-sm">
-            <CardHeader>
-              <div className="flex justify-between items-start">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="space-y-6 md:col-span-2">
+          <div className="border border-border bg-card p-6">
+            <div className="mb-6 flex items-start justify-between">
+              <div>
+                <h2 className="font-headline text-xl text-ink">Application #PAD-10294</h2>
+                <p className="font-body text-sm text-muted-foreground">Professional CDL Class A Training Program</p>
+              </div>
+              <span className="bg-accent/10 px-3 py-1 font-body text-[10px] font-bold uppercase tracking-widest text-accent">
+                Under Review
+              </span>
+            </div>
+            <div className="relative space-y-8">
+              <div className="absolute bottom-0 left-3 top-0 w-px bg-border" />
+              <div className="relative flex items-start gap-4">
+                <div className="z-10 rounded-full bg-primary p-1 text-primary-foreground">
+                  <CheckCircle className="h-4 w-4" />
+                </div>
                 <div>
-                  <CardTitle>Application #PAD-10294</CardTitle>
-                  <CardDescription>Professional CDL Class A Training Program</CardDescription>
-                </div>
-                <Badge className="bg-accent text-accent-foreground font-bold">Under Review</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="relative">
-                <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-muted"></div>
-                <div className="space-y-8 relative">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-primary text-white p-1 rounded-full z-10">
-                      <CheckCircle className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold">Personal Information Submission</h4>
-                      <p className="text-sm text-muted-foreground">Submitted on Oct 12, 2023</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-primary text-white p-1 rounded-full z-10">
-                      <CheckCircle className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold">Medical Screening</h4>
-                      <p className="text-sm text-muted-foreground">Cleared on Oct 14, 2023</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-accent text-accent-foreground p-1 rounded-full z-10 animate-pulse">
-                      <Clock className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold">Eligibility & Background Check</h4>
-                      <p className="text-sm text-muted-foreground">Currently in progress by local authorities</p>
-                    </div>
-                  </div>
+                  <h4 className="font-body text-sm font-bold text-ink">Personal Information Submission</h4>
+                  <p className="font-body text-xs text-muted-foreground">Submitted on Oct 12, 2023</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="relative flex items-start gap-4">
+                <div className="z-10 rounded-full bg-primary p-1 text-primary-foreground">
+                  <CheckCircle className="h-4 w-4" />
+                </div>
+                <div>
+                  <h4 className="font-body text-sm font-bold text-ink">Medical Screening</h4>
+                  <p className="font-body text-xs text-muted-foreground">Cleared on Oct 14, 2023</p>
+                </div>
+              </div>
+              <div className="relative flex items-start gap-4">
+                <div className="z-10 rounded-full bg-accent p-1 text-cream">
+                  <Clock className="h-4 w-4" />
+                </div>
+                <div>
+                  <h4 className="font-body text-sm font-bold text-ink">Eligibility &amp; Background Check</h4>
+                  <p className="font-body text-xs text-muted-foreground">Currently in progress by local authorities</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <Card className="border-none shadow-sm">
-            <CardHeader>
-              <CardTitle>Required Documentation</CardTitle>
-              <CardDescription>Please upload clear scanned copies of the following documents</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {[
-                { name: "Government ID / Passport", status: "Verified" },
-                { name: "Medical Fitness Certificate", status: "Verified" },
-                { name: "Background Check Authorization", status: "Verified" },
-                { name: "Prior Experience Logs (Optional)", status: "Pending", action: true },
-              ].map((doc, idx) => (
-                <div key={idx} className="flex items-center justify-between p-4 border rounded-xl">
+          <div className="border border-border bg-card p-6">
+            <h2 className="mb-1 font-headline text-xl text-ink">Required Documentation</h2>
+            <p className="mb-5 font-body text-sm text-muted-foreground">Please upload clear scanned copies of the following documents</p>
+            <div className="space-y-3">
+              {documents.map((doc) => (
+                <div key={doc.name} className="flex items-center justify-between border border-border p-4">
                   <div className="flex items-center gap-3">
-                    <div className="bg-secondary p-2 rounded-lg">
-                      <FileText className="h-5 w-5 text-primary" />
+                    <div className="rounded-lg bg-secondary p-2">
+                      <FileText className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <p className="font-semibold text-sm">{doc.name}</p>
-                      <p className="text-xs text-muted-foreground">PDF, JPG, PNG allowed</p>
+                      <p className="font-body text-sm font-semibold text-ink">{doc.name}</p>
+                      <p className="font-body text-xs text-muted-foreground">PDF, JPG, PNG allowed</p>
                     </div>
                   </div>
                   {doc.action ? (
-                    <Button variant="outline" size="sm" className="gap-2">
-                      <FileUp className="h-4 w-4" /> Upload
-                    </Button>
+                    <button className="flex items-center gap-2 border border-primary px-3 py-2 font-body text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-primary-foreground">
+                      <FileUp className="h-3.5 w-3.5" /> Upload
+                    </button>
                   ) : (
-                    <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100">
-                      <CheckCircle className="h-3 w-3 mr-1" /> Verified
-                    </Badge>
+                    <span className="flex items-center gap-1.5 border border-primary/30 bg-primary/5 px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-widest text-primary">
+                      <CheckCircle className="h-3 w-3" /> Verified
+                    </span>
                   )}
                 </div>
               ))}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-primary text-white border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>Need Help?</CardTitle>
-              <CardDescription className="text-white/70">Our admission officers are here to assist with your application.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="w-full bg-white text-primary hover:bg-white/90 font-bold py-6 rounded-xl shadow-lg border-none">Contact Admissions</Button>
-            </CardContent>
-          </Card>
+          <div className="bg-ink p-6 text-cream">
+            <h2 className="mb-1 font-headline text-xl text-cream">Need Help?</h2>
+            <p className="mb-5 font-body text-sm text-cream/60">Our admission officers are here to assist with your application.</p>
+            <button className="w-full bg-sage py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+              Contact Admissions
+            </button>
+          </div>
 
-          <Card className="border-none shadow-sm">
-            <CardHeader>
-              <CardTitle>Guidelines</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm">
+          <div className="border border-border bg-card p-6">
+            <h2 className="mb-4 font-headline text-lg text-ink">Guidelines</h2>
+            <div className="space-y-3 font-body text-sm text-muted-foreground">
               <div className="flex gap-2">
-                <AlertCircle className="h-4 w-4 text-primary shrink-0" />
+                <AlertCircle className="h-4 w-4 shrink-0 text-primary" />
                 <p>Ensure all documents are under 5MB in size.</p>
               </div>
               <div className="flex gap-2">
-                <AlertCircle className="h-4 w-4 text-primary shrink-0" />
+                <AlertCircle className="h-4 w-4 shrink-0 text-primary" />
                 <p>Medical clearance must be within the last 30 days.</p>
               </div>
-              <Button variant="link" className="p-0 h-auto text-primary gap-1">
-                <Download className="h-3 w-3" /> Download Handbook
-              </Button>
-            </CardContent>
-          </Card>
+              <button className="flex items-center gap-1.5 pt-2 font-body text-sm font-bold text-primary hover:underline">
+                <Download className="h-3.5 w-3.5" /> Download Handbook
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,29 +1,25 @@
-
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
 export default function DashboardMarketplaceRedirect() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6">
-      <Card className="border-none shadow-sm max-w-md w-full">
-        <CardContent className="pt-10 pb-8 space-y-4">
-          <h2 className="text-2xl font-bold text-primary">Marketplace Hub</h2>
-          <p className="text-muted-foreground">The Marketplace has moved to a primary site page for easier access.</p>
-          <Button 
-            className="w-full bg-primary hover:bg-primary/90 h-12 rounded-xl text-lg font-bold"
-            onClick={() => router.push("/marketplace")}
-          >
-            Go to Marketplace Hub <ExternalLink className="ml-2 h-5 w-5" />
-          </Button>
-        </CardContent>
-      </Card>
+    <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+      <div className="w-full max-w-md border border-border bg-card p-10">
+        <h2 className="mb-3 font-headline text-2xl text-ink">Marketplace Hub</h2>
+        <p className="mb-6 font-body text-sm text-muted-foreground">
+          The Marketplace has moved to a primary site page for easier access.
+        </p>
+        <button
+          onClick={() => router.push("/marketplace")}
+          className="flex w-full items-center justify-center gap-2 bg-sage py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
+        >
+          Go to Marketplace Hub <ExternalLink className="h-4 w-4" />
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,87 +1,90 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search, Filter, MoreHorizontal, GraduationCap, MapPin, Download } from "lucide-react";
 
-export default function AdminAllLearnersPage() {
-  const learners = [
-    { id: "LRN-001", name: "Johnathan Doe", status: "Active", program: "Articulated Pro", progress: "64%", location: "Hamburg, DE" },
-    { id: "LRN-002", name: "Sarah Miller", status: "Active", program: "Safety Master", progress: "92%", location: "Toronto, CA" },
-    { id: "LRN-003", name: "Michael Chen", status: "Inactive", program: "Logistics Admin", progress: "15%", location: "Vancouver, CA" },
-    { id: "LRN-004", name: "Elena Rodriguez", status: "Active", program: "Articulated Pro", progress: "45%", location: "Madrid, ES" },
-    { id: "LRN-005", name: "Ahmed Hassan", status: "Completed", program: "Safety Master", progress: "100%", location: "Cairo, EG" },
-  ];
+const learners = [
+  { id: "LRN-001", name: "Johnathan Doe", status: "Active", program: "Articulated Pro", progress: "64%", location: "Hamburg, DE" },
+  { id: "LRN-002", name: "Sarah Miller", status: "Active", program: "Safety Master", progress: "92%", location: "Toronto, CA" },
+  { id: "LRN-003", name: "Michael Chen", status: "Inactive", program: "Logistics Admin", progress: "15%", location: "Vancouver, CA" },
+  { id: "LRN-004", name: "Elena Rodriguez", status: "Active", program: "Articulated Pro", progress: "45%", location: "Madrid, ES" },
+  { id: "LRN-005", name: "Ahmed Hassan", status: "Completed", program: "Safety Master", progress: "100%", location: "Cairo, EG" },
+];
 
+export default function AdminAllLearnersPage() {
   return (
     <div className="space-y-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <h1 className="text-3xl font-bold text-primary mb-2">Learner Directory</h1>
-          <p className="text-muted-foreground">Comprehensive database of all registered students and trainees.</p>
+          <h1 className="mb-2 font-headline text-3xl text-ink">Learner Directory</h1>
+          <p className="font-body text-sm text-muted-foreground">Comprehensive database of all registered students and trainees.</p>
         </div>
-        <Button variant="outline" className="rounded-xl border-primary text-primary font-bold">
-          <Download className="h-4 w-4 mr-2" /> Export Student Data
-        </Button>
+        <button className="flex items-center gap-2 border border-primary px-5 py-2.5 font-body text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-primary-foreground">
+          <Download className="h-4 w-4" /> Export Student Data
+        </button>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search learners by name, ID, or location..." className="pl-10 h-10 rounded-xl" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input placeholder="Search learners by name, ID, or location..." className="h-11 rounded-none border-border bg-background pl-10 font-body text-sm shadow-none focus-visible:border-primary focus-visible:ring-0" />
         </div>
-        <Button variant="secondary" className="rounded-xl"><Filter className="h-4 w-4 mr-2" /> Filter</Button>
+        <button className="flex items-center justify-center gap-2 border border-border px-5 py-2.5 font-body text-xs font-bold uppercase tracking-widest text-ink transition-colors hover:bg-secondary">
+          <Filter className="h-4 w-4" /> Filter
+        </button>
       </div>
 
-      <Card className="border-none shadow-sm overflow-hidden">
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-secondary/30">
-                <TableHead className="font-bold">Learner ID</TableHead>
-                <TableHead className="font-bold">Name</TableHead>
-                <TableHead className="font-bold">Status</TableHead>
-                <TableHead className="font-bold">Current Program</TableHead>
-                <TableHead className="font-bold">Progress</TableHead>
-                <TableHead className="font-bold text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {learners.map((learner) => (
-                <TableRow key={learner.id} className="hover:bg-secondary/10 transition-colors">
-                  <TableCell className="font-mono text-xs">{learner.id}</TableCell>
-                  <TableCell>
-                    <div className="font-bold">{learner.name}</div>
-                    <div className="text-[10px] text-muted-foreground flex items-center gap-1">
-                      <MapPin className="h-2 w-2" /> {learner.location}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={learner.status === 'Active' ? 'default' : learner.status === 'Completed' ? 'secondary' : 'outline'} className={learner.status === 'Completed' ? 'bg-green-100 text-green-700' : ''}>
-                      {learner.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2 text-sm">
-                      <GraduationCap className="h-3 w-3 text-primary" /> {learner.program}
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-bold">{learner.progress}</TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon" className="rounded-full">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      <div className="overflow-x-auto border border-border bg-card">
+        <table className="w-full min-w-[720px] text-left">
+          <thead>
+            <tr className="border-b border-border bg-secondary">
+              <th className="p-4 font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Learner ID</th>
+              <th className="p-4 font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Name</th>
+              <th className="p-4 font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Status</th>
+              <th className="p-4 font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Current Program</th>
+              <th className="p-4 font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Progress</th>
+              <th className="p-4 text-right font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {learners.map((learner) => (
+              <tr key={learner.id} className="border-b border-border transition-colors last:border-0 hover:bg-secondary/50">
+                <td className="p-4 font-mono text-xs text-muted-foreground">{learner.id}</td>
+                <td className="p-4">
+                  <div className="font-body text-sm font-bold text-ink">{learner.name}</div>
+                  <div className="flex items-center gap-1 font-body text-[10px] text-muted-foreground">
+                    <MapPin className="h-2.5 w-2.5" /> {learner.location}
+                  </div>
+                </td>
+                <td className="p-4">
+                  <span
+                    className={`font-body text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 ${
+                      learner.status === "Active"
+                        ? "bg-primary/10 text-primary"
+                        : learner.status === "Completed"
+                        ? "bg-accent/10 text-accent"
+                        : "border border-border text-muted-foreground"
+                    }`}
+                  >
+                    {learner.status}
+                  </span>
+                </td>
+                <td className="p-4">
+                  <div className="flex items-center gap-2 font-body text-sm text-ink">
+                    <GraduationCap className="h-3.5 w-3.5 text-primary" /> {learner.program}
+                  </div>
+                </td>
+                <td className="p-4 font-body text-sm font-bold text-ink">{learner.progress}</td>
+                <td className="p-4 text-right">
+                  <button className="p-1 text-muted-foreground transition-colors hover:text-ink">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
