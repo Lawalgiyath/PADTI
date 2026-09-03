@@ -1,21 +1,19 @@
-
 "use client";
 
 import Link from "next/link";
-import { 
-  User, 
-  Mail, 
-  Lock, 
-  Phone, 
-  ShieldCheck, 
+import Image from "next/image";
+import {
+  User,
+  Mail,
+  Lock,
+  Phone,
+  ShieldCheck,
   ArrowLeft,
   Loader2,
-  ChevronRight
+  ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,6 +22,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { useAuth, useFirestore } from "@/firebase";
 import { useToast } from "@/hooks/use-toast";
+
+const fieldClass =
+  "h-12 rounded-none border-border bg-card pl-11 font-body text-sm shadow-none focus-visible:border-primary focus-visible:ring-0";
+const labelClass = "font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground";
 
 function DriverSignUpForm() {
   const router = useRouter();
@@ -42,11 +44,11 @@ function DriverSignUpForm() {
     phone: "",
     password: "",
     state: "",
-    nin: ""
+    nin: "",
   });
 
   const nigerianStates = [
-    "Lagos", "Abuja (FCT)", "Rivers", "Kano", "Oyo", "Kaduna", "Ogun", "Delta", "Enugu", "Edo", "Kwara", "Akwa Ibom"
+    "Lagos", "Abuja (FCT)", "Rivers", "Kano", "Oyo", "Kaduna", "Ogun", "Delta", "Enugu", "Edo", "Kwara", "Akwa Ibom",
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,25 +64,25 @@ function DriverSignUpForm() {
       const fullName = `${formData.firstName} ${formData.lastName}`;
 
       await updateProfile(user, {
-        displayName: fullName
+        displayName: fullName,
       });
 
       const profileData = {
         uid: user.uid,
         email: formData.email,
         displayName: fullName,
-        role: 'driver',
+        role: "driver",
         phoneNumber: formData.phone,
         verified: false,
         createdAt: serverTimestamp(),
         metadata: {
           state: formData.state,
-          nin: formData.nin
-        }
+          nin: formData.nin,
+        },
       };
 
       await setDoc(doc(db, "users", user.uid), profileData);
-      
+
       toast({
         title: "Account Created",
         description: "Welcome to the PADTI Driver Portal!",
@@ -99,113 +101,140 @@ function DriverSignUpForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-secondary/30 p-4 py-12">
-      <div className="w-full max-w-xl">
-        <div className="flex flex-col items-center mb-8">
-          <Link href="/" className="flex items-center space-x-2 mb-4">
-            <div className="bg-white p-2 rounded-xl shadow-sm">
-              <Logo className="h-10 w-10 text-primary" />
-            </div>
-            <span className="text-2xl font-bold text-primary font-headline">PADTI</span>
-          </Link>
-          <Link href="/" className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to home
-          </Link>
+    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
+      {/* Photo side */}
+      <div className="relative hidden lg:block">
+        <Image
+          src="/images/facility-visit/padti-facility-visit-03.jpeg"
+          alt="PADTI staff and FRSC officials at the training facility"
+          fill
+          className="object-cover"
+          style={{ objectPosition: "center 35%" }}
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10" />
+        <div className="absolute inset-0 flex flex-col justify-end p-12">
+          <p className="mb-3 font-body text-xs font-bold uppercase tracking-[0.35em] text-cream/70">
+            Professional. Verified. Global.
+          </p>
+          <h2 className="max-w-md font-headline text-4xl leading-tight text-cream">
+            Train for excellence. <span className="italic">Partner for growth.</span>
+          </h2>
         </div>
-        
-        <Card className="shadow-2xl border-none rounded-[32px] overflow-hidden">
-          <CardHeader className="space-y-1 bg-white pb-8">
-            <CardTitle className="text-3xl text-center font-bold text-primary">Driver Registration</CardTitle>
-            <CardDescription className="text-center text-lg">
-              Join the elite institute for professional articulated drivers
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-6 p-8 bg-secondary/10">
-            <form onSubmit={handleRegister} className="grid gap-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">First Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="firstName" placeholder="John" className="pl-10 h-11 rounded-xl bg-white border-none shadow-sm" required value={formData.firstName} onChange={handleInputChange} />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Last Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="lastName" placeholder="Doe" className="pl-10 h-11 rounded-xl bg-white border-none shadow-sm" required value={formData.lastName} onChange={handleInputChange} />
-                  </div>
-                </div>
-              </div>
+      </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email Address</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="email" type="email" placeholder="john@example.com" className="pl-10 h-11 rounded-xl bg-white border-none shadow-sm" required value={formData.email} onChange={handleInputChange} />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Phone Number</Label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="phone" placeholder="+234 ..." className="pl-10 h-11 rounded-xl bg-white border-none shadow-sm" required value={formData.phone} onChange={handleInputChange} />
-                  </div>
-                </div>
-              </div>
+      {/* Form side */}
+      <div className="flex items-center justify-center bg-background px-6 py-16">
+        <div className="w-full max-w-md">
+          <Link href="/" className="mb-2 flex items-center gap-2">
+            <Logo className="h-8 w-8 text-primary" />
+            <span className="font-headline text-xl text-ink">PADTI</span>
+          </Link>
+          <Link
+            href="/"
+            className="mb-10 inline-flex items-center gap-2 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to home
+          </Link>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">State of Residence</Label>
-                  <Select onValueChange={(val) => setFormData({...formData, state: val})}>
-                    <SelectTrigger className="h-11 rounded-xl bg-white border-none shadow-sm">
-                      <SelectValue placeholder="Select State" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {nigerianStates.map(state => (
-                        <SelectItem key={state} value={state.toLowerCase()}>{state}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="nin" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">National ID (NIN)</Label>
-                  <div className="relative">
-                    <ShieldCheck className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="nin" placeholder="11-digit NIN" className="pl-10 h-11 rounded-xl bg-white border-none shadow-sm" value={formData.nin} onChange={handleInputChange} />
-                  </div>
-                </div>
-              </div>
+          <p className="mb-2 font-body text-xs font-bold uppercase tracking-[0.35em] text-primary">
+            Driver Registration
+          </p>
+          <h1 className="mb-8 font-headline text-3xl text-ink">
+            Join the <span className="italic">institute</span>
+          </h1>
 
+          <form onSubmit={handleRegister} className="space-y-5">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="password" title="Create Password" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Create Password</Label>
+                <Label htmlFor="firstName" className={labelClass}>First Name</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input id="password" type="password" className="pl-10 h-11 rounded-xl bg-white border-none shadow-sm" required value={formData.password} onChange={handleInputChange} />
+                  <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="firstName" placeholder="John" className={fieldClass} required value={formData.firstName} onChange={handleInputChange} />
                 </div>
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName" className={labelClass}>Last Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="lastName" placeholder="Doe" className={fieldClass} required value={formData.lastName} onChange={handleInputChange} />
+                </div>
+              </div>
+            </div>
 
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 mt-4 py-7 text-lg rounded-2xl font-bold shadow-xl" disabled={loading}>
-                {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : (
-                  <>Create Driver Account <ChevronRight className="ml-2 h-5 w-5" /></>
-                )}
-              </Button>
-            </form>
-          </CardContent>
-          <CardFooter className="flex flex-col items-center justify-center gap-4 p-8 bg-white border-t">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <div className="text-sm text-muted-foreground">Already have an account?</div>
-              <Link href="/auth/signin" className="text-sm font-bold text-primary hover:underline">Sign in to Portal</Link>
+            <div className="space-y-2">
+              <Label htmlFor="email" className={labelClass}>Email Address</Label>
+              <div className="relative">
+                <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input id="email" type="email" placeholder="john@example.com" className={fieldClass} required value={formData.email} onChange={handleInputChange} />
+              </div>
             </div>
-            <div className="text-center">
-              <Link href="/auth/signup-partner" className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 uppercase tracking-widest">
-                Are you an Employer or Partner? Register here
-              </Link>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone" className={labelClass}>Phone Number</Label>
+              <div className="relative">
+                <Phone className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input id="phone" placeholder="+234 ..." className={fieldClass} required value={formData.phone} onChange={handleInputChange} />
+              </div>
             </div>
-          </CardFooter>
-        </Card>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label className={labelClass}>State of Residence</Label>
+                <Select onValueChange={(val) => setFormData({ ...formData, state: val })}>
+                  <SelectTrigger className="h-12 rounded-none border-border bg-card font-body text-sm shadow-none focus:ring-0">
+                    <SelectValue placeholder="Select State" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-none">
+                    {nigerianStates.map((state) => (
+                      <SelectItem key={state} value={state.toLowerCase()}>{state}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="nin" className={labelClass}>National ID (NIN)</Label>
+                <div className="relative">
+                  <ShieldCheck className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="nin" placeholder="11-digit NIN" className={fieldClass} value={formData.nin} onChange={handleInputChange} />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password" className={labelClass}>Create Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input id="password" type="password" className={fieldClass} required value={formData.password} onChange={handleInputChange} />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex w-full items-center justify-center gap-2 bg-sage py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark disabled:opacity-60"
+            >
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <>Create Driver Account <ArrowRight className="h-4 w-4" /></>
+              )}
+            </button>
+          </form>
+
+          <div className="mt-8 space-y-3 border-t border-border pt-6 text-center">
+            <p className="font-body text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link href="/auth/signin" className="font-bold text-primary hover:underline">Sign in to Portal</Link>
+            </p>
+            <Link
+              href="/auth/signup-partner"
+              className="inline-block font-body text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
+            >
+              Are you an Employer or Partner? Register here
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -213,7 +242,7 @@ function DriverSignUpForm() {
 
 export default function DriverSignUpPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading Registration...</div>}>
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center font-body text-muted-foreground">Loading registration...</div>}>
       <DriverSignUpForm />
     </Suspense>
   );
