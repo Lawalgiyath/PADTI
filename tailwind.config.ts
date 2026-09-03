@@ -49,7 +49,12 @@ export default {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         navy: 'hsl(var(--navy))',
+        'navy-deep': 'hsl(var(--navy-deep))',
+        'blue-600': 'hsl(var(--blue-600))',
+        'surface-alt': 'hsl(var(--surface-alt))',
+        'surface-alt-2': 'hsl(var(--surface-alt-2))',
         gold: 'hsl(var(--gold))',
+        'gold-dark': 'hsl(var(--gold-dark))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',

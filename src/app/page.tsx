@@ -69,34 +69,37 @@ export default function Home() {
 
       <main className="flex-grow">
         {/* Hero */}
-        <section className="relative flex min-h-[85vh] items-center pt-16">
+        <section className="relative flex min-h-[88vh] items-center pt-16">
           <HeroSlideshow />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/75 to-navy-deep/30" />
           <div className="container relative z-10 mx-auto px-4 py-20">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <Badge className="mb-6 border-none bg-gold px-6 py-1.5 text-sm font-bold text-navy shadow-lg">
+              <Badge className="mb-6 border-none bg-gold px-6 py-1.5 text-sm font-bold tracking-wide text-navy-deep shadow-lg">
                 THE WORLD&apos;S LARGEST ARTICULATED DRIVER NETWORK
               </Badge>
-              <h1 className="mb-6 font-headline text-4xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
+              <h1 className="mb-4 font-headline text-5xl font-extrabold leading-[1.05] tracking-tight text-white md:text-7xl">
                 Train for Excellence. Partner for Growth.
               </h1>
-              <p className="text-lg font-medium leading-relaxed text-white/90 md:text-xl">
+              <div className="mx-auto mb-6 h-1 w-20 rounded-full bg-gold" />
+              <p className="text-lg font-medium leading-relaxed text-white/85 md:text-xl">
                 PADTI Connect bridges elite driver training and the global logistics ecosystem — for drivers, employers, and partners alike.
               </p>
             </div>
 
             <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
-              <Card className="rounded-2xl border-none bg-white shadow-2xl">
+              <Card className="overflow-hidden rounded-2xl border-none bg-white shadow-[0_20px_50px_-15px_rgba(10,37,64,0.45)]">
+                <div className="h-1.5 bg-primary" />
                 <CardHeader className="p-8 pb-4">
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <GraduationCap className="h-7 w-7" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-primary">For Drivers</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-navy-deep">For Drivers</CardTitle>
                   <CardDescription className="text-base text-muted-foreground">
                     Get certified, gain real experience, and land verified roles in the global logistics economy.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-0">
-                  <Button size="lg" className="w-full rounded-xl bg-primary py-6 text-base font-bold hover:bg-primary/90" asChild>
+                  <Button size="lg" className="w-full rounded-xl bg-primary py-6 text-base font-bold hover:bg-blue-600" asChild>
                     <Link href={driverPath}>
                       {user ? "Explore Programs" : "Start Driver Training"} <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
@@ -104,12 +107,13 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border-none bg-white shadow-2xl">
+              <Card className="overflow-hidden rounded-2xl border-none bg-white shadow-[0_20px_50px_-15px_rgba(10,37,64,0.45)]">
+                <div className="h-1.5 bg-gold" />
                 <CardHeader className="p-8 pb-4">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/15 text-navy">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/15 text-gold-dark">
                     <Handshake className="h-7 w-7" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-primary">For Partners</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-navy-deep">For Partners</CardTitle>
                   <CardDescription className="text-base text-muted-foreground">
                     Hire verified talent, offer insurance instruments, or join as a manufacturer in our ecosystem.
                   </CardDescription>
@@ -117,7 +121,7 @@ export default function Home() {
                 <CardContent className="p-8 pt-0">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button size="lg" variant="outline" className="w-full rounded-xl border-primary py-6 text-base font-bold text-primary hover:bg-primary hover:text-white">
+                      <Button size="lg" variant="outline" className="w-full rounded-xl border-2 border-navy-deep py-6 text-base font-bold text-navy-deep hover:bg-navy-deep hover:text-white">
                         Join the Ecosystem
                       </Button>
                     </DropdownMenuTrigger>
@@ -151,72 +155,91 @@ export default function Home() {
         </section>
 
         {/* Stats */}
-        <section className="border-y bg-white py-20">
+        <section className="bg-surface-alt py-20">
           <div className="container mx-auto grid grid-cols-2 gap-8 px-4 md:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="text-center">
-                <s.icon className="mx-auto mb-3 h-8 w-8 text-primary" />
-                <h3 className="text-3xl font-extrabold text-foreground md:text-4xl">{s.val}</h3>
-                <p className="mt-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">{s.label}</p>
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
+                  <s.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-headline text-3xl font-extrabold text-navy-deep md:text-4xl">{s.val}</h3>
+                <div className="mx-auto my-2 h-0.5 w-6 bg-gold" />
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{s.label}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Insights */}
-        <section className="bg-secondary/30 py-24">
+        <section className="bg-white py-24">
           <div className="container mx-auto px-4">
             <div className="mb-14 text-center">
               <Badge className="mb-4 border-none bg-primary px-4 py-1 text-white">GLOBAL IMPACT</Badge>
-              <h2 className="font-headline text-3xl font-bold text-primary md:text-4xl">Strategic Industry Insights</h2>
+              <h2 className="font-headline text-3xl font-bold text-navy-deep md:text-4xl">Strategic Industry Insights</h2>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {insights.map((item) => (
-                <Card key={item.tag} className="flex h-full flex-col rounded-2xl border-none bg-white shadow-md">
-                  <CardHeader className="p-8 pb-2">
-                    <Quote className="mb-4 h-6 w-6 text-primary/40" />
-                    <CardTitle className="text-lg font-bold text-primary">{item.tag}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-grow p-8 pt-2">
-                    <p className="text-base italic leading-relaxed text-muted-foreground">&ldquo;{item.quote}&rdquo;</p>
-                    <p className="mt-6 text-xs font-bold uppercase tracking-widest text-primary/70">— {item.source}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              {insights.map((item, i) => {
+                const featured = i === 2;
+                return (
+                  <Card
+                    key={item.tag}
+                    className={
+                      featured
+                        ? "flex h-full flex-col rounded-2xl border-none bg-navy-deep shadow-[0_20px_50px_-15px_rgba(10,37,64,0.5)]"
+                        : "flex h-full flex-col rounded-2xl border-l-4 border-primary bg-white shadow-md transition-shadow hover:shadow-xl"
+                    }
+                  >
+                    <CardHeader className="p-8 pb-2">
+                      <Quote className={featured ? "mb-4 h-6 w-6 text-gold" : "mb-4 h-6 w-6 text-primary/40"} />
+                      <CardTitle className={featured ? "text-lg font-bold text-white" : "text-lg font-bold text-navy-deep"}>
+                        {item.tag}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-grow p-8 pt-2">
+                      <p className={featured ? "text-base italic leading-relaxed text-white/80" : "text-base italic leading-relaxed text-muted-foreground"}>
+                        &ldquo;{item.quote}&rdquo;
+                      </p>
+                      <p className={featured ? "mt-6 text-xs font-bold uppercase tracking-widest text-gold" : "mt-6 text-xs font-bold uppercase tracking-widest text-primary/70"}>
+                        — {item.source}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* Partners */}
-        <section className="border-y bg-white py-16">
+        <section className="bg-surface-alt py-16">
           <div className="container mx-auto px-4 text-center">
             <p className="mb-10 text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
               Institutional Partners &amp; Global Stakeholders
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
               {partners.map((p) => (
-                <span key={p} className="text-lg font-bold text-foreground/70">{p}</span>
+                <span key={p} className="text-lg font-bold text-navy-deep/70">{p}</span>
               ))}
             </div>
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="bg-primary py-24 text-center text-white">
+        <section className="bg-navy-deep py-24 text-center text-white">
           <div className="container mx-auto px-4">
             <h2 className="mb-6 font-headline text-3xl font-bold leading-tight md:text-5xl">
               Join the Future of Articulated Logistics
             </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-white/85">
+            <p className="mx-auto mb-10 max-w-2xl text-lg text-white/75">
               Enroll for elite training or register your organization to access a global network of verified articulated driver talent.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button size="lg" className="w-full rounded-xl bg-gold px-10 py-6 text-base font-bold text-navy hover:bg-gold/90 sm:w-auto" asChild>
+              <Button size="lg" className="w-full rounded-xl bg-gold px-10 py-6 text-base font-bold text-navy-deep shadow-[0_10px_30px_-8px_rgba(216,160,45,0.6)] hover:bg-gold/90 sm:w-auto" asChild>
                 <Link href={driverPath}>{user ? "View Courses" : "Apply for Training"}</Link>
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button size="lg" variant="outline" className="w-full rounded-xl border-white bg-transparent px-10 py-6 text-base font-bold text-white hover:bg-white hover:text-primary sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full rounded-xl border-2 border-white/40 bg-transparent px-10 py-6 text-base font-bold text-white hover:bg-white hover:text-navy-deep sm:w-auto">
                     Become a Partner
                   </Button>
                 </DropdownMenuTrigger>
