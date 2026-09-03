@@ -1,92 +1,95 @@
-
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Search, 
-  Filter, 
-  Heart, 
-  Share2, 
-  Building2, 
-  MapPin, 
-  Truck, 
-  Scale, 
-  Building, 
+import {
+  Search,
+  Heart,
+  Share2,
+  Building2,
+  MapPin,
+  Truck,
+  Scale,
+  Building,
   ExternalLink,
-  Briefcase,
-  Users
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { SectionLabel } from "@/components/section-label";
+import { Reveal } from "@/components/reveal";
 
 const PARTNER_DATA = [
-  { 
-    id: "p1", 
-    name: "DHL Global", 
-    type: "Logistics", 
-    location: "Bonn, DE", 
-    logo: "DH", 
-    listings: 14, 
+  {
+    id: "p1",
+    name: "DHL Global",
+    type: "Logistics",
+    location: "Bonn, DE",
+    logo: "/images/logos/dhl.svg",
+    listings: 14,
     likes: 245,
-    description: "Global leader in express shipping and logistics services across 220+ countries."
+    description: "Global leader in express shipping and logistics services across 220+ countries.",
   },
-  { 
-    id: "p2", 
-    name: "AXA Insurance", 
-    type: "Insurance", 
-    location: "Paris, FR", 
-    logo: "AX", 
-    listings: 4, 
+  {
+    id: "p2",
+    name: "AXA Insurance",
+    type: "Insurance",
+    location: "Paris, FR",
+    logo: "/images/logos/axa.svg",
+    listings: 4,
     likes: 128,
-    description: "Providing innovative insurance instruments specifically designed for articulated professionals."
+    description: "Providing innovative insurance instruments specifically designed for articulated professionals.",
   },
-  { 
-    id: "p3", 
-    name: "Scania Group", 
-    type: "Manufacturer", 
-    location: "Södertälje, SE", 
-    logo: "SG", 
-    listings: 8, 
+  {
+    id: "p3",
+    name: "Scania Group",
+    type: "Manufacturer",
+    location: "Sodertalje, SE",
+    logo: undefined,
+    listings: 8,
     likes: 312,
-    description: "World-leading provider of transport solutions, including trucks and buses for heavy transport."
+    description: "World-leading provider of transport solutions, including trucks and buses for heavy transport.",
   },
-  { 
-    id: "p4", 
-    name: "Maersk Line", 
-    type: "Logistics", 
-    location: "Copenhagen, DK", 
-    logo: "ML", 
-    listings: 22, 
+  {
+    id: "p4",
+    name: "Maersk Line",
+    type: "Logistics",
+    location: "Copenhagen, DK",
+    logo: "/images/logos/maersk.svg",
+    listings: 22,
     likes: 410,
-    description: "Integrated container logistics company and the largest container ship operator in the world."
+    description: "Integrated container logistics company and the largest container ship operator in the world.",
   },
-  { 
-    id: "p5", 
-    name: "EU Logistics Council", 
-    type: "Institutional", 
-    location: "Brussels, BE", 
-    logo: "EU", 
-    listings: 0, 
+  {
+    id: "p5",
+    name: "EU Logistics Council",
+    type: "Institutional",
+    location: "Brussels, BE",
+    logo: undefined,
+    listings: 0,
     likes: 89,
-    description: "Strategic body facilitating cross-border logistics standards and professional mobility in Europe."
+    description: "Strategic body facilitating cross-border logistics standards and professional mobility in Europe.",
   },
-  { 
-    id: "p6", 
-    name: "Volvo Trucks", 
-    type: "Manufacturer", 
-    location: "Gothenburg, SE", 
-    logo: "VT", 
-    listings: 12, 
+  {
+    id: "p6",
+    name: "Volvo Trucks",
+    type: "Manufacturer",
+    location: "Gothenburg, SE",
+    logo: "/images/logos/volvo.svg",
+    listings: 12,
     likes: 275,
-    description: "Driving progress through high-quality, safe and environmentally friendly articulated vehicles."
+    description: "Driving progress through high-quality, safe and environmentally friendly articulated vehicles.",
   },
 ];
+
+const typeIcon: Record<string, typeof Truck> = {
+  Logistics: Truck,
+  Insurance: Scale,
+  Manufacturer: Truck,
+  Institutional: Building,
+};
 
 export default function PartnerDirectoryPage() {
   const [search, setSearch] = useState("");
@@ -95,9 +98,9 @@ export default function PartnerDirectoryPage() {
 
   const categories = ["All", "Logistics", "Insurance", "Manufacturer", "Institutional"];
 
-  const filteredPartners = PARTNER_DATA.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) || 
-                          p.location.toLowerCase().includes(search.toLowerCase());
+  const filteredPartners = PARTNER_DATA.filter((p) => {
+    const matchesSearch =
+      p.name.toLowerCase().includes(search.toLowerCase()) || p.location.toLowerCase().includes(search.toLowerCase());
     const matchesFilter = filter === "All" || p.type === filter;
     return matchesSearch && matchesFilter;
   });
@@ -110,153 +113,156 @@ export default function PartnerDirectoryPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-secondary/30">
+    <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
-      
-      <main className="flex-grow py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto space-y-8">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              <div>
-                <h1 className="text-4xl font-extrabold text-primary font-headline mb-2">Partner Network Directory</h1>
-                <p className="text-lg text-muted-foreground max-w-2xl">
-                  Explore the global institutions, fleets, and manufacturers driving the future of articulated logistics.
-                </p>
-              </div>
-              <Button className="bg-primary hover:bg-primary/90 font-bold rounded-xl h-12 px-8 shadow-lg" asChild>
-                <Link href="/auth/signup?role=employer">Become a Partner</Link>
-              </Button>
+
+      <main className="flex-grow px-6 py-16 md:px-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="mb-3 font-body text-xs font-bold uppercase tracking-[0.35em] text-primary">
+                Verified Network
+              </p>
+              <h1 className="font-headline text-4xl text-ink md:text-6xl">Partner Network Directory</h1>
             </div>
+            <p className="max-w-sm font-body text-sm text-muted-foreground">
+              Explore the institutions, fleets, and manufacturers driving the future of articulated logistics.
+            </p>
+          </div>
 
-            {/* Controls */}
-            <Card className="border-none shadow-sm rounded-[24px] overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex flex-col lg:flex-row gap-4">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                    <Input 
-                      placeholder="Search by institution name or location..." 
-                      className="pl-10 h-12 rounded-xl border-secondary"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {categories.map((cat) => (
-                      <Button
-                        key={cat}
-                        variant={filter === cat ? "default" : "outline"}
-                        onClick={() => setFilter(cat)}
-                        className={cn(
-                          "rounded-xl h-12 px-6 font-bold transition-all",
-                          filter === cat ? "bg-primary shadow-md" : "bg-white border-secondary hover:bg-secondary/20"
-                        )}
-                      >
-                        {cat}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPartners.map((partner) => (
-                <Card key={partner.id} className="border-none shadow-sm hover:shadow-xl transition-all group rounded-[32px] overflow-hidden flex flex-col bg-white">
-                  <CardHeader className="p-8 pb-4">
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="bg-primary/10 text-primary font-bold w-16 h-16 rounded-[20px] flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        {partner.logo}
-                      </div>
-                      <Badge variant="secondary" className="bg-secondary text-primary font-bold px-3 py-1 uppercase tracking-widest text-[10px]">
-                        {partner.type === 'Logistics' && <Truck className="h-3 w-3 mr-1" />}
-                        {partner.type === 'Insurance' && <Scale className="h-3 w-3 mr-1" />}
-                        {partner.type === 'Manufacturer' && <Truck className="h-3 w-3 mr-1" />}
-                        {partner.type === 'Institutional' && <Building className="h-3 w-3 mr-1" />}
-                        {partner.type}
-                      </Badge>
-                    </div>
-                    <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors">{partner.name}</CardTitle>
-                    <CardDescription className="flex items-center gap-1 font-medium mt-1">
-                      <MapPin className="h-4 w-4" /> {partner.location}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-8 pt-0 flex-grow space-y-6">
-                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                      {partner.description}
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 border-y py-4 border-secondary/50">
-                      <div className="text-center">
-                        <p className="text-xl font-bold text-primary">{partner.listings}</p>
-                        <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Listings</p>
-                      </div>
-                      <div className="text-center border-l border-secondary/50">
-                        <p className="text-xl font-bold text-primary">{partner.likes + (likedPartners.has(partner.id) ? 1 : 0)}</p>
-                        <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Network Score</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter className="p-8 pt-0 flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      className={cn(
-                        "flex-1 rounded-xl h-11 font-bold gap-2 transition-colors",
-                        likedPartners.has(partner.id) ? "bg-red-50 border-red-200 text-red-600 hover:bg-red-100" : "hover:bg-secondary/20"
-                      )}
-                      onClick={() => toggleLike(partner.id)}
-                    >
-                      <Heart className={cn("h-4 w-4", likedPartners.has(partner.id) && "fill-current")} /> Like
-                    </Button>
-                    <Button variant="outline" className="flex-1 rounded-xl h-11 font-bold gap-2 hover:bg-secondary/20">
-                      <Share2 className="h-4 w-4" /> Share
-                    </Button>
-                    <Button className="flex-none rounded-xl h-11 px-4 bg-primary hover:bg-primary/90" title="View Profile">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </CardFooter>
-                </Card>
+          {/* Controls */}
+          <div className="mb-10 flex flex-col gap-4 lg:flex-row">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                placeholder="Search by institution name or location..."
+                className="h-12 w-full border border-border bg-card pl-11 pr-4 font-body text-sm outline-none focus:border-primary"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={cn(
+                    "h-12 border px-6 font-body text-xs font-bold uppercase tracking-widest transition-colors",
+                    filter === cat
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card text-muted-foreground hover:border-primary hover:text-ink"
+                  )}
+                >
+                  {cat}
+                </button>
               ))}
             </div>
+          </div>
 
-            {filteredPartners.length === 0 && (
-              <div className="text-center py-20 bg-white rounded-[32px] shadow-sm">
-                <Building2 className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-muted-foreground">No partners found</h3>
-                <p className="text-muted-foreground">Try adjusting your search or filter criteria.</p>
-                <Button variant="link" className="text-primary font-bold mt-4" onClick={() => {setSearch(""); setFilter("All");}}>
-                  Clear all filters
-                </Button>
-              </div>
-            )}
+          <SectionLabel>{filteredPartners.length} Verified Institutions</SectionLabel>
 
-            {/* Ecosystem CTA */}
-            <Card className="bg-primary text-white border-none shadow-xl rounded-[40px] overflow-hidden relative">
-              <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
-                <Users className="h-48 w-48" />
-              </div>
-              <CardContent className="p-12 flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
-                <div className="space-y-4 text-center lg:text-left">
-                  <h2 className="text-3xl font-bold">Connect Your Institution</h2>
-                  <p className="text-white/80 text-lg max-w-xl">
-                    Whether you're an employer, insurer, or equipment provider, the PADTI Partner Network is your gateway to global logistics excellence.
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl px-10 py-7 text-lg font-bold border-none shadow-lg">
-                    Integration API
-                  </Button>
-                  <Button variant="outline" className="bg-white/10 border-white/20 hover:bg-white/20 text-white rounded-xl px-10 py-7 text-lg font-bold border-none">
-                    Contact Network Lead
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Grid */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {filteredPartners.map((partner, i) => {
+              const TypeIcon = typeIcon[partner.type] ?? Building;
+              return (
+                <Reveal key={partner.id} delay={i * 60}>
+                  <div className="flex h-full flex-col border border-border bg-card p-6">
+                    <div className="mb-5 flex items-start justify-between">
+                      {partner.logo ? (
+                        <Image src={partner.logo} alt={partner.name} width={80} height={30} className="h-8 w-auto object-contain" />
+                      ) : (
+                        <span className="font-headline text-lg text-ink">{partner.name}</span>
+                      )}
+                      <span className="flex items-center gap-1 font-body text-[10px] font-bold uppercase tracking-widest text-accent">
+                        <TypeIcon className="h-3 w-3" /> {partner.type}
+                      </span>
+                    </div>
+                    <h3 className="mb-1 font-headline text-lg text-ink">{partner.name}</h3>
+                    <p className="mb-4 flex items-center gap-1.5 font-body text-xs text-muted-foreground">
+                      <MapPin className="h-3.5 w-3.5" /> {partner.location}
+                    </p>
+                    <p className="mb-6 font-body text-sm leading-relaxed text-muted-foreground line-clamp-3">
+                      {partner.description}
+                    </p>
+                    <div className="mb-6 mt-auto grid grid-cols-2 border-y border-border py-4">
+                      <div className="text-center">
+                        <p className="font-headline text-xl text-ink">{partner.listings}</p>
+                        <p className="font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Listings</p>
+                      </div>
+                      <div className="border-l border-border text-center">
+                        <p className="font-headline text-xl text-ink">
+                          {partner.likes + (likedPartners.has(partner.id) ? 1 : 0)}
+                        </p>
+                        <p className="font-body text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Network Score</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => toggleLike(partner.id)}
+                        className={cn(
+                          "flex flex-1 items-center justify-center gap-2 border py-2.5 font-body text-xs font-bold uppercase tracking-widest transition-colors",
+                          likedPartners.has(partner.id)
+                            ? "border-accent text-accent"
+                            : "border-border text-muted-foreground hover:border-primary hover:text-ink"
+                        )}
+                      >
+                        <Heart className={cn("h-3.5 w-3.5", likedPartners.has(partner.id) && "fill-current")} /> Like
+                      </button>
+                      <button className="flex flex-1 items-center justify-center gap-2 border border-border py-2.5 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:border-primary hover:text-ink">
+                        <Share2 className="h-3.5 w-3.5" /> Share
+                      </button>
+                      <button className="flex items-center justify-center border border-primary px-3 text-primary transition-colors hover:bg-primary hover:text-primary-foreground" title="View Profile">
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          {filteredPartners.length === 0 && (
+            <div className="border border-border bg-card py-20 text-center">
+              <Building2 className="mx-auto mb-4 h-12 w-12 text-muted-foreground/30" />
+              <h3 className="font-headline text-2xl text-ink">No partners found</h3>
+              <p className="mt-2 font-body text-sm text-muted-foreground">Try adjusting your search or filter criteria.</p>
+              <button
+                className="mt-6 font-body text-sm font-bold text-primary hover:underline"
+                onClick={() => {
+                  setSearch("");
+                  setFilter("All");
+                }}
+              >
+                Clear all filters
+              </button>
+            </div>
+          )}
+
+          {/* Ecosystem CTA */}
+          <div className="mt-6 flex flex-col items-center justify-between gap-8 bg-ink p-12 text-center lg:flex-row lg:text-left">
+            <div>
+              <h2 className="font-headline text-3xl text-cream">Connect Your Institution</h2>
+              <p className="mt-3 max-w-xl font-body text-sm text-cream/60">
+                Whether you&apos;re an employer, insurer, or equipment provider, the PADTI Partner Network is your
+                gateway to global logistics excellence.
+              </p>
+            </div>
+            <div className="flex flex-shrink-0 flex-col gap-3 sm:flex-row">
+              <button className="bg-sage px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+                Integration API
+              </button>
+              <Link
+                href="/auth/signup?role=employer"
+                className="border border-cream/40 px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:border-cream hover:bg-cream hover:text-ink"
+              >
+                Contact Network Lead
+              </Link>
+            </div>
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
