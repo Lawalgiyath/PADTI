@@ -7,18 +7,22 @@ const slides = [
   {
     src: '/images/facility-visit/padti-facility-visit-03.jpeg',
     alt: 'FRSC officials and PADTI staff touring the PADTI training facility',
+    focus: 'center 35%',
   },
   {
     src: '/images/facility-visit/padti-facility-visit-13.jpeg',
     alt: 'PADTI staff and FRSC officers on site at the training facility',
+    focus: 'center 30%',
   },
   {
     src: '/images/facility-visit/padti-facility-visit-17.jpeg',
     alt: 'FRSC officials walking the PADTI facility grounds',
+    focus: 'center 28%',
   },
   {
     src: '/images/planning-meeting/padti-planning-meeting-02.jpeg',
     alt: 'PADTI leadership in a strategic planning session',
+    focus: 'center 25%',
   },
 ];
 
@@ -52,6 +56,7 @@ export function HeroSlideshow() {
             fill
             priority={i === 0}
             className="object-cover"
+            style={{ objectPosition: slide.focus }}
             sizes="100vw"
           />
         </div>

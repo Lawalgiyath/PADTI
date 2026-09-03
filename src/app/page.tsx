@@ -130,14 +130,17 @@ export default function Home() {
             <p className="mt-6 max-w-lg font-body text-base text-cream/70 md:text-lg">
               PADTI Connect bridges elite driver training and the global logistics ecosystem.
             </p>
-            <div className="mt-9 flex flex-wrap items-center">
+            <div className="mt-9 flex flex-wrap items-center gap-5">
               <Link
                 href={driverPath}
-                className="group inline-flex items-center gap-2 rounded-l-full bg-sage py-4 pl-8 pr-7 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
+                className="group inline-flex items-center gap-2 rounded-l-full rounded-r-md bg-sage py-4 pl-8 pr-7 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
               >
                 {user ? "Explore Programs" : "Start Driver Training"}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
               </Link>
+              <span className="hidden font-body text-xl font-light text-cream/30 sm:inline" aria-hidden>
+                |
+              </span>
               <PartnerMenu label="Join the Ecosystem" glowIcon roundRight />
             </div>
           </div>
