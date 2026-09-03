@@ -190,7 +190,7 @@ function DashboardHeaderLabel() {
   };
 
   return (
-    <h2 className="text-sm font-bold text-primary uppercase tracking-wider">
+    <h2 className="font-body text-sm font-bold text-primary uppercase tracking-widest">
       {titles[role] || "Driver Dashboard"}
     </h2>
   );
@@ -211,9 +211,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <SidebarHeader>
           <div className="flex items-center gap-2 px-2 py-2">
             <div className="p-1">
-              <Logo className="h-7 w-7 text-primary" />
+              <Logo className="h-7 w-7 text-sidebar-primary" />
             </div>
-            <span className="font-bold text-lg text-primary truncate group-data-[collapsible=icon]:hidden font-headline">PADTI</span>
+            <span className="font-headline text-lg text-sidebar-foreground truncate group-data-[collapsible=icon]:hidden">PADTI</span>
           </div>
         </SidebarHeader>
         
@@ -233,7 +233,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 bg-white/50 backdrop-blur-sm sticky top-0 z-30">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border px-4 bg-card/80 backdrop-blur-sm sticky top-0 z-30">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <div className="flex-1">

@@ -44,6 +44,17 @@
     --sage-dark: 217 72% 24%;
     --terracotta: 37 55% 46%;
     --cream: 42 40% 98%;
+
+    /* Dashboard sidebar - referenced throughout components/ui/sidebar.tsx
+       but never previously defined, so it ran on undefined CSS vars. */
+    --sidebar-background: 20 10% 12%;
+    --sidebar-foreground: 42 30% 92%;
+    --sidebar-primary: 217 68% 45%;
+    --sidebar-primary-foreground: 42 40% 98%;
+    --sidebar-accent: 20 8% 18%;
+    --sidebar-accent-foreground: 42 30% 92%;
+    --sidebar-border: 20 8% 20%;
+    --sidebar-ring: 217 68% 45%;
   }
 
   .dark {
