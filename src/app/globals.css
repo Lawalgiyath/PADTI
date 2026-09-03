@@ -4,65 +4,63 @@
 
 @layer base {
   /*
-    Industrial palette: asphalt/graphite neutrals against a hazard-amber accent,
-    with a desaturated steel-blue as the rare cool counter-note. Split-complementary
-    (amber ~28° vs steel ~205°), grounded in real trucking/road-safety semiotics
-    rather than a decorative gradient.
+    Institutional blue, matching PADTI's original brand and the register of a
+    site tied to FRSC/NATEP: a trustworthy government-grade blue (close to
+    USWDS primary blue) on a clean white/light-neutral ground, with a
+    restrained gold accent for emphasis. Light background, not dark — that's
+    the norm for official/regulatory sites for a reason (trust, legibility,
+    print-friendliness), not a stylistic default.
   */
   :root {
-    --background: 220 15% 6%;
-    --foreground: 40 20% 96%;
-    --card: 220 12% 10%;
-    --card-foreground: 40 20% 96%;
-    --popover: 220 14% 8%;
-    --popover-foreground: 40 20% 96%;
-    --primary: 28 100% 54%;
-    --primary-foreground: 220 15% 6%;
-    --secondary: 220 10% 15%;
-    --secondary-foreground: 40 20% 96%;
-    --muted: 220 10% 15%;
-    --muted-foreground: 220 8% 62%;
-    --accent: 16 75% 40%;
-    --accent-foreground: 40 20% 96%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 40 20% 96%;
-    --border: 220 10% 18%;
-    --input: 220 10% 18%;
-    --ring: 28 100% 54%;
+    --background: 210 20% 98%;
+    --foreground: 215 30% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 30% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 30% 14%;
+    --primary: 212 100% 31%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 215 30% 14%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 12% 42%;
+    --accent: 42 88% 48%;
+    --accent-foreground: 215 30% 14%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 18% 88%;
+    --input: 210 18% 88%;
+    --ring: 212 100% 31%;
     --radius: 0.5rem;
-    --chart-1: 28 100% 54%;
-    --chart-2: 205 25% 55%;
-    --chart-3: 16 75% 40%;
-    --chart-4: 40 20% 80%;
-    --chart-5: 220 10% 40%;
-    --steel: 205 25% 55%;
-    --asphalt: 220 15% 6%;
-    --graphite: 220 12% 10%;
-    --bone: 40 20% 96%;
-    --safety-amber: 28 100% 54%;
-    --rust: 16 75% 40%;
+    --chart-1: 212 100% 31%;
+    --chart-2: 42 88% 48%;
+    --chart-3: 205 25% 55%;
+    --chart-4: 215 12% 60%;
+    --chart-5: 215 30% 25%;
+    --navy: 215 45% 18%;
+    --gold: 42 88% 48%;
   }
 
   .dark {
-    --background: 220 15% 6%;
-    --foreground: 40 20% 96%;
-    --card: 220 12% 10%;
-    --card-foreground: 40 20% 96%;
-    --popover: 220 14% 8%;
-    --popover-foreground: 40 20% 96%;
-    --primary: 28 100% 54%;
-    --primary-foreground: 220 15% 6%;
-    --secondary: 220 10% 15%;
-    --secondary-foreground: 40 20% 96%;
-    --muted: 220 10% 15%;
-    --muted-foreground: 220 8% 62%;
-    --accent: 16 75% 40%;
-    --accent-foreground: 40 20% 96%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 40 20% 96%;
-    --border: 220 10% 18%;
-    --input: 220 10% 18%;
-    --ring: 28 100% 54%;
+    --background: 215 35% 9%;
+    --foreground: 210 20% 96%;
+    --card: 215 30% 12%;
+    --card-foreground: 210 20% 96%;
+    --popover: 215 30% 12%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 212 90% 55%;
+    --primary-foreground: 215 35% 9%;
+    --secondary: 215 25% 16%;
+    --secondary-foreground: 210 20% 96%;
+    --muted: 215 25% 16%;
+    --muted-foreground: 215 12% 65%;
+    --accent: 42 88% 55%;
+    --accent-foreground: 215 35% 9%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 210 20% 96%;
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --ring: 212 90% 55%;
   }
 }
 

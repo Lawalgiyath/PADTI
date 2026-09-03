@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['var(--font-archivo)', 'sans-serif'],
-        headline: ['var(--font-anton)', 'sans-serif'],
+        body: ['var(--font-public-sans)', 'sans-serif'],
+        headline: ['var(--font-public-sans)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -48,12 +48,8 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        steel: 'hsl(var(--steel))',
-        asphalt: 'hsl(var(--asphalt))',
-        graphite: 'hsl(var(--graphite))',
-        bone: 'hsl(var(--bone))',
-        'safety-amber': 'hsl(var(--safety-amber))',
-        rust: 'hsl(var(--rust))',
+        navy: 'hsl(var(--navy))',
+        gold: 'hsl(var(--gold))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',
