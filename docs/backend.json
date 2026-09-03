@@ -1,0 +1,107 @@
+
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Extended profile for all platform participants.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["driver", "employer", "admin", "insurer", "manufacturer", "institution"] },
+        "photoURL": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "metadata": { "type": "object", "description": "Role-specific data like NIN or Business Reg No." }
+      },
+      "required": ["uid", "role"]
+    },
+    "MarketplaceListing": {
+      "title": "Marketplace Listing",
+      "description": "General schema for all marketplace assets.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string", "enum": ["opportunity", "talent", "insurance", "equipment", "service"] },
+        "description": { "type": "string" },
+        "provider": { "type": "string" },
+        "location": { "type": "string" },
+        "price": { "type": "string" },
+        "metadata": { "type": "object" },
+        "status": { "type": "string", "enum": ["active", "closed", "pending"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "status"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Institutional training program metadata.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "cost": { "type": "string" },
+        "duration": { "type": "string" },
+        "level": { "type": "string" },
+        "active": { "type": "boolean" }
+      }
+    },
+    "Enrollment": {
+      "title": "Enrollment",
+      "description": "Tracks student progress in a course.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "courseId": { "type": "string" },
+        "progress": { "type": "number" },
+        "paymentStatus": { "type": "string", "enum": ["paid", "partial", "unpaid", "awaiting-verification"] },
+        "paymentMethod": { "type": "string", "enum": ["paystack", "offline"] },
+        "paymentReference": { "type": "string" },
+        "status": { "type": "string", "enum": ["enrolled", "completed", "dropped"] },
+        "scores": { "type": "object" }
+      }
+    },
+    "SupportTicket": {
+      "title": "Support Ticket",
+      "description": "Platform help desk request.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string" },
+        "subject": { "type": "string" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "status": { "type": "string", "enum": ["open", "in-progress", "resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["password", "google", "facebook", "phone"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Platform user profiles."
+    },
+    "/marketplace/{listingId}": {
+      "schema": "MarketplaceListing",
+      "description": "Jobs, Insurance, Equipment, Services, and Talent search index."
+    },
+    "/courses/{courseId}": {
+      "schema": "Course",
+      "description": "Catalog of training programs."
+    },
+    "/enrollments/{enrollmentId}": {
+      "schema": "Enrollment",
+      "description": "Student course tracking and financial status."
+    },
+    "/tickets/{ticketId}": {
+      "schema": "SupportTicket",
+      "description": "Help desk and institutional support items."
+    }
+  }
+}

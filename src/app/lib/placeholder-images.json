@@ -1,0 +1,34 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-truck",
+      "description": "Modern articulated truck on a highway",
+      "imageUrl": "https://picsum.photos/seed/truck1/1200/600",
+      "imageHint": "truck highway"
+    },
+    {
+      "id": "simulator",
+      "description": "Modern PADTI Articulated Driver Training Center and Facility",
+      "imageUrl": "https://picsum.photos/seed/padti-facility-99/800/600",
+      "imageHint": "truck training facility center"
+    },
+    {
+      "id": "training-ground",
+      "description": "Driver training facility",
+      "imageUrl": "https://picsum.photos/seed/train/800/600",
+      "imageHint": "training facility"
+    },
+    {
+      "id": "student-success",
+      "description": "Happy driver graduate",
+      "imageUrl": "https://picsum.photos/seed/success/600/400",
+      "imageHint": "happy driver"
+    },
+    {
+      "id": "employer-partner",
+      "description": "Corporate logistics center",
+      "imageUrl": "https://picsum.photos/seed/logistics/600/400",
+      "imageHint": "logistics center"
+    }
+  ]
+}
