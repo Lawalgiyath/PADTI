@@ -4,13 +4,13 @@
 
 @layer base {
   /*
-    Editorial palette, adapted from what reads as considered/human on
-    reference sites in this register: warm cream paper instead of clinical
-    white, near-black ink instead of pure black, a muted sage-olive as the
-    primary accent (calm, trustworthy, distinct from every driving-school
-    blue) and a rare terracotta highlight reserved for real emphasis. Full
-    lightness range from cream (98%) down to ink (13%) so depth reads from
-    value contrast, not just borders.
+    Editorial palette: warm cream paper instead of clinical white, near-black
+    ink instead of pure black. Primary is a precise cobalt/oxford blue at
+    hue 217°. Accent is its true complementary — exactly 180° away at
+    hue 37°, a muted amber-ochre — not eyeballed, and kept desaturated
+    (55/46) to match the editorial register instead of reading as a bright
+    hazard color. Full lightness range from cream (98%) down to ink (13%)
+    so depth reads from value contrast, not just borders.
   */
   :root {
     --background: 42 35% 97%;
@@ -19,30 +19,30 @@
     --card-foreground: 20 8% 15%;
     --popover: 42 40% 99%;
     --popover-foreground: 20 8% 15%;
-    --primary: 138 18% 33%;
+    --primary: 217 68% 32%;
     --primary-foreground: 42 40% 98%;
     --secondary: 36 25% 92%;
     --secondary-foreground: 20 8% 15%;
     --muted: 36 25% 92%;
     --muted-foreground: 20 6% 40%;
-    --accent: 8 42% 42%;
-    --accent-foreground: 42 40% 98%;
+    --accent: 37 55% 46%;
+    --accent-foreground: 20 8% 15%;
     --destructive: 0 55% 42%;
     --destructive-foreground: 42 40% 98%;
     --border: 36 18% 85%;
     --input: 36 18% 85%;
-    --ring: 138 18% 33%;
+    --ring: 217 68% 32%;
     --radius: 0.125rem;
-    --chart-1: 138 18% 33%;
-    --chart-2: 8 42% 42%;
+    --chart-1: 217 68% 32%;
+    --chart-2: 37 55% 46%;
     --chart-3: 20 8% 30%;
     --chart-4: 36 20% 65%;
-    --chart-5: 138 12% 55%;
+    --chart-5: 217 30% 55%;
 
     --ink: 20 10% 12%;
-    --sage: 138 18% 33%;
-    --sage-dark: 138 22% 24%;
-    --terracotta: 8 42% 42%;
+    --sage: 217 68% 32%;
+    --sage-dark: 217 72% 24%;
+    --terracotta: 37 55% 46%;
     --cream: 42 40% 98%;
   }
 
@@ -53,19 +53,19 @@
     --card-foreground: 42 30% 94%;
     --popover: 20 10% 13%;
     --popover-foreground: 42 30% 94%;
-    --primary: 138 22% 50%;
+    --primary: 217 65% 58%;
     --primary-foreground: 20 12% 9%;
     --secondary: 20 8% 18%;
     --secondary-foreground: 42 30% 94%;
     --muted: 20 8% 18%;
     --muted-foreground: 36 10% 65%;
-    --accent: 8 42% 55%;
+    --accent: 37 55% 58%;
     --accent-foreground: 20 12% 9%;
     --destructive: 0 55% 50%;
     --destructive-foreground: 42 30% 94%;
     --border: 20 8% 22%;
     --input: 20 8% 22%;
-    --ring: 138 22% 50%;
+    --ring: 217 65% 58%;
   }
 }
 
