@@ -94,7 +94,7 @@ export default function ProgramsPage() {
               Our <span className="italic">Courses</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl font-body text-base text-cream/70 md:text-lg">
-              Global-standard, FRSC-compliant certifications — from first gear change to logistics leadership.
+              Global-standard, FRSC-compliant certifications, from first gear change to logistics leadership.
             </p>
           </div>
         </section>
@@ -137,7 +137,7 @@ export default function ProgramsPage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-body text-base leading-relaxed text-muted-foreground md:text-lg">
               Our curriculum is developed in direct collaboration with the world&apos;s leading logistics firms. We
-              don&apos;t just teach you how to drive — we train you to meet the operational and safety requirements
+              don&apos;t just teach you how to drive; we train you to meet the operational and safety requirements
               of global fleets.
             </p>
           </div>

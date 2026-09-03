@@ -196,7 +196,7 @@ export default function Home() {
                   <p className="font-headline text-xl italic leading-relaxed text-ink">&ldquo;{item.quote}&rdquo;</p>
                 </div>
                 <p className="mt-10 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  — {item.source}
+                  {item.source}
                 </p>
               </div>
             ))}
