@@ -1,25 +1,15 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Users, 
-  TrendingUp, 
-  ShieldCheck, 
-  Search,
-  Truck,
-  Building2
-} from "lucide-react";
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip as ChartTooltip, 
-  ResponsiveContainer 
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as ChartTooltip,
+  ResponsiveContainer,
 } from "recharts";
+import { Users, TrendingUp, ShieldCheck, Truck, Building2 } from "lucide-react";
 import { useUser } from "@/firebase";
 
 const hiringStats = [
@@ -29,6 +19,13 @@ const hiringStats = [
   { name: "Hired", count: 5 },
 ];
 
+const stats = [
+  { icon: Truck, label: "Active Listings", value: "12" },
+  { icon: Users, label: "Total Applications", value: "156" },
+  { icon: ShieldCheck, label: "Verifications", value: "42" },
+  { icon: TrendingUp, label: "Talent Matches", value: "89%" },
+];
+
 export default function EmployerOverview() {
   const { user } = useUser();
   const orgName = user?.displayName || "Partner";
@@ -36,67 +33,55 @@ export default function EmployerOverview() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-primary mb-2">Welcome Back, {orgName}</h1>
-        <p className="text-muted-foreground">Manage your fleet recruitment and verify credentials in real-time.</p>
+        <h1 className="mb-2 font-headline text-3xl text-ink">Welcome back, {orgName}</h1>
+        <p className="font-body text-sm text-muted-foreground">Manage your fleet recruitment and verify credentials in real-time.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><Truck className="h-4 w-4" /> Active Listings</CardDescription>
-            <CardTitle className="text-3xl">12</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><Users className="h-4 w-4" /> Total Applications</CardDescription>
-            <CardTitle className="text-3xl">156</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Verifications</CardDescription>
-            <CardTitle className="text-3xl">42</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><TrendingUp className="h-4 w-4" /> Talent Matches</CardDescription>
-            <CardTitle className="text-3xl">89%</CardTitle>
-          </CardHeader>
-        </Card>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <div key={stat.label} className="border border-border bg-card p-5">
+            <p className="mb-3 flex items-center gap-2 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <stat.icon className="h-3.5 w-3.5" /> {stat.label}
+            </p>
+            <p className="font-headline text-3xl text-ink">{stat.value}</p>
+          </div>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 shadow-sm border-none">
-          <CardHeader>
-            <CardTitle>Recruitment Pipeline</CardTitle>
-            <CardDescription>Visual breakdown of your current hiring funnel</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[300px]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="border border-border bg-card p-6 lg:col-span-2">
+          <h2 className="font-headline text-xl text-ink">Recruitment Pipeline</h2>
+          <p className="mb-4 font-body text-sm text-muted-foreground">Visual breakdown of your current hiring funnel</p>
+          <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={hiringStats}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                 <XAxis dataKey="name" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis fontSize={12} tickLine={false} axisLine={false} />
-                <ChartTooltip cursor={{ fill: '#f3f4f6' }} />
-                <Bar dataKey="count" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                <ChartTooltip cursor={{ fill: "hsl(var(--secondary))" }} />
+                <Bar dataKey="count" fill="hsl(var(--accent))" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="shadow-sm border-none bg-primary text-white">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Building2 className="h-5 w-5" /> Quick Actions</CardTitle>
-            <CardDescription className="text-white/70">Manage your institutional partnership</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-bold py-6 rounded-xl border-none">Post New Opportunity</Button>
-            <Button variant="outline" className="w-full bg-white/10 border-white/20 hover:bg-white/20 text-white font-bold py-6 rounded-xl">Verify Credentials</Button>
-            <Button variant="link" className="w-full text-white/80 hover:text-white">Download Hiring Report</Button>
-          </CardContent>
-        </Card>
+        <div className="bg-ink p-6 text-cream">
+          <h2 className="mb-1 flex items-center gap-2 font-headline text-xl text-cream">
+            <Building2 className="h-5 w-5" /> Quick Actions
+          </h2>
+          <p className="mb-6 font-body text-sm text-cream/60">Manage your institutional partnership</p>
+          <div className="space-y-3">
+            <button className="w-full bg-sage py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark">
+              Post New Opportunity
+            </button>
+            <button className="w-full border border-cream/30 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:border-cream">
+              Verify Credentials
+            </button>
+            <button className="w-full font-body text-sm font-medium text-cream/70 underline-offset-2 hover:text-cream hover:underline">
+              Download Hiring Report
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

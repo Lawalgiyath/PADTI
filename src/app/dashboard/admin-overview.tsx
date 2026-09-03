@@ -1,110 +1,97 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Users, 
-  Building2, 
-  FileText, 
-  AlertCircle,
-  Activity,
-  CheckCircle
-} from "lucide-react";
+import { Users, Building2, AlertCircle, Activity, CheckCircle } from "lucide-react";
 import { useUser } from "@/firebase";
+
+const pendingRequests = [
+  { type: "Student Enrollment", name: "Alice Johnson", date: "2 hours ago", status: "New" },
+  { type: "Employer Verification", name: "Global Trans Co", date: "5 hours ago", status: "Urgent" },
+  { type: "Certificate Approval", name: "Bob Smith", date: "1 day ago", status: "Pending" },
+];
+
+const systemStatus = ["LMS Services", "Credential Verification API", "Employer Marketplace"];
 
 export default function AdminOverview() {
   const { user } = useUser();
   const firstName = user?.displayName ? user.displayName.split(" ")[0] : "Admin";
 
-  const pendingRequests = [
-    { type: "Student Enrollment", name: "Alice Johnson", date: "2 hours ago", status: "New" },
-    { type: "Employer Verification", name: "Global Trans Co", date: "5 hours ago", status: "Urgent" },
-    { type: "Certificate Approval", name: "Bob Smith", date: "1 day ago", status: "Pending" },
-  ];
-
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-primary mb-2">Welcome Back, {firstName}</h1>
-        <p className="text-muted-foreground">Manage platform operations, student admissions, and employer partnerships.</p>
+        <h1 className="mb-2 font-headline text-3xl text-ink">Welcome back, {firstName}</h1>
+        <p className="font-body text-sm text-muted-foreground">Manage platform operations, student admissions, and employer partnerships.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><Users className="h-4 w-4" /> Total Students</CardDescription>
-            <CardTitle className="text-3xl">1,240</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><Building2 className="h-4 w-4" /> Partner Employers</CardDescription>
-            <CardTitle className="text-3xl">86</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card className="bg-white shadow-sm border-none">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center gap-2"><Activity className="h-4 w-4" /> Platform Growth</CardDescription>
-            <CardTitle className="text-3xl">+18% <span className="text-sm font-normal text-muted-foreground">this month</span></CardTitle>
-          </CardHeader>
-        </Card>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="border border-border bg-card p-5">
+          <p className="mb-3 flex items-center gap-2 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <Users className="h-3.5 w-3.5" /> Total Students
+          </p>
+          <p className="font-headline text-3xl text-ink">1,240</p>
+        </div>
+        <div className="border border-border bg-card p-5">
+          <p className="mb-3 flex items-center gap-2 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <Building2 className="h-3.5 w-3.5" /> Partner Employers
+          </p>
+          <p className="font-headline text-3xl text-ink">86</p>
+        </div>
+        <div className="border border-border bg-card p-5">
+          <p className="mb-3 flex items-center gap-2 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <Activity className="h-3.5 w-3.5" /> Platform Growth
+          </p>
+          <p className="font-headline text-3xl text-ink">
+            +18% <span className="font-body text-sm font-normal text-muted-foreground">this month</span>
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="shadow-sm border-none">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><AlertCircle className="h-5 w-5 text-accent" /> Pending Actions</CardTitle>
-            <CardDescription>Items requiring administrative review</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="border border-border bg-card p-6">
+          <h2 className="mb-1 flex items-center gap-2 font-headline text-xl text-ink">
+            <AlertCircle className="h-5 w-5 text-accent" /> Pending Actions
+          </h2>
+          <p className="mb-5 font-body text-sm text-muted-foreground">Items requiring administrative review</p>
+          <div className="space-y-3">
             {pendingRequests.map((req, idx) => (
-              <div key={idx} className="flex items-center justify-between p-4 border rounded-xl hover:bg-secondary/20 transition-colors">
+              <div key={idx} className="flex items-center justify-between border border-border p-4 transition-colors hover:bg-secondary">
                 <div className="flex items-center gap-3">
-                  <div className="bg-primary/10 p-2 rounded-lg text-primary">
-                    {req.type.includes('Student') ? <Users className="h-4 w-4" /> : <Building2 className="h-4 w-4" />}
+                  <div className="rounded-full bg-primary/10 p-2 text-primary">
+                    {req.type.includes("Student") ? <Users className="h-4 w-4" /> : <Building2 className="h-4 w-4" />}
                   </div>
                   <div>
-                    <p className="font-bold text-sm">{req.name}</p>
-                    <p className="text-xs text-muted-foreground">{req.type} • {req.date}</p>
+                    <p className="font-body text-sm font-bold text-ink">{req.name}</p>
+                    <p className="font-body text-xs text-muted-foreground">{req.type} &middot; {req.date}</p>
                   </div>
                 </div>
-                <Badge variant={req.status === 'Urgent' ? 'destructive' : 'default'} className="rounded-lg">
+                <span
+                  className={`font-body text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 ${
+                    req.status === "Urgent" ? "bg-destructive text-destructive-foreground" : "bg-secondary text-muted-foreground"
+                  }`}
+                >
                   {req.status}
-                </Badge>
+                </span>
               </div>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="shadow-sm border-none">
-          <CardHeader>
-            <CardTitle>Platform Health</CardTitle>
-            <CardDescription>Operational status of PADTI systems</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                <span className="text-sm font-medium">LMS Services</span>
+        <div className="border border-border bg-card p-6">
+          <h2 className="mb-1 font-headline text-xl text-ink">Platform Health</h2>
+          <p className="mb-5 font-body text-sm text-muted-foreground">Operational status of PADTI systems</p>
+          <div className="space-y-4">
+            {systemStatus.map((system) => (
+              <div key={system} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <span className="font-body text-sm font-medium text-ink">{system}</span>
+                </div>
+                <span className="border border-primary/30 bg-primary/5 px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-widest text-primary">
+                  Operational
+                </span>
               </div>
-              <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50">Operational</Badge>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                <span className="text-sm font-medium">Credential Verification API</span>
-              </div>
-              <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50">Operational</Badge>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                <span className="text-sm font-medium">Employer Marketplace</span>
-              </div>
-              <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50">Operational</Badge>
-            </div>
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
