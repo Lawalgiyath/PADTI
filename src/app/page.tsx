@@ -1,30 +1,19 @@
-
 "use client";
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowRight, 
-  Globe, 
-  ShieldCheck, 
-  TrendingUp, 
-  Users, 
-  Monitor, 
-  Building2, 
-  GraduationCap, 
+import {
+  ArrowRight,
+  Globe,
+  ShieldCheck,
+  Users,
   Briefcase,
-  ChevronDown,
-  Zap,
+  GraduationCap,
   Handshake,
   Scale,
   Truck,
   Building,
-  Quote,
-  Sparkles,
-  Search
+  Building2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -32,276 +21,211 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
 import Link from "next/link";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useUser } from "@/firebase";
+import { TruckExperience } from "@/components/experience/truck-experience";
+import { KineticText } from "@/components/experience/kinetic-text";
+import { StatCounter } from "@/components/experience/stat-counter";
+
+const stats = [
+  { icon: Users, value: 25000, suffix: "+", label: "Verified Drivers" },
+  { icon: Globe, value: 15, suffix: "+", label: "Countries Served" },
+  { icon: Briefcase, value: 850, suffix: "+", label: "Active Job Listings" },
+  { icon: ShieldCheck, value: 100, suffix: "%", label: "Secure Verification" },
+];
+
+const insights = [
+  {
+    tag: "Global Career Mobility",
+    quote:
+      "Articulated truck driving is a high-demand global skill. Institutional-grade certification is the primary key to unlocking lucrative international logistics careers.",
+    source: "Industry Talent Outlook",
+  },
+  {
+    tag: "The Global Shortage",
+    quote:
+      "The global shortage of truck drivers is set to double by 2028 — high-quality training and institutional certification is how the gap in the supply chain closes.",
+    source: "IRU Global Driver Shortage Report",
+  },
+  {
+    tag: "NATEP Alignment",
+    quote:
+      "Nigeria's National Talent Export Programme aims to position Nigeria as a global talent hub. PADTI trains world-class drivers for that marketplace.",
+    source: "Strategic Alignment",
+  },
+];
+
+const partners = ["DHL Global", "Maersk", "AXA Insurance", "Scania", "FRSC", "NATEP"];
+
+function PartnerDropdown({ label, onLight = false }: { label: string; onLight?: boolean }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          data-cursor-hover
+          className={
+            onLight
+              ? "group inline-flex items-center gap-3 border border-asphalt/30 bg-transparent px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-asphalt transition-colors hover:border-asphalt hover:bg-asphalt hover:text-bone"
+              : "group inline-flex items-center gap-3 border border-border bg-transparent px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-bone transition-colors hover:border-primary hover:text-primary"
+          }
+        >
+          {label}
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="center" className="w-64 rounded-none border-border bg-card p-2">
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=employer" className="flex cursor-pointer items-center gap-2 py-3">
+            <Building2 className="h-4 w-4 text-primary" /> <span>Employer &amp; Fleet</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=insurer" className="flex cursor-pointer items-center gap-2 py-3">
+            <Scale className="h-4 w-4 text-primary" /> <span>Insurance Provider</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=manufacturer" className="flex cursor-pointer items-center gap-2 py-3">
+            <Truck className="h-4 w-4 text-primary" /> <span>Equipment Manufacturer</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=institution" className="flex cursor-pointer items-center gap-2 py-3">
+            <Building className="h-4 w-4 text-primary" /> <span>Institutional Partner</span>
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export default function Home() {
   const { user } = useUser();
-  const heroImg = PlaceHolderImages.find(img => img.id === "hero-truck");
-
   const driverPath = user ? "/programs" : "/auth/signup";
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
-      
-      <main className="flex-grow">
-        {/* Dual-Sided Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary pt-16">
-          <Image
-            src={heroImg?.imageUrl || ""}
-            alt={heroImg?.description || "Hero"}
-            fill
-            className="object-cover opacity-20 mix-blend-overlay"
-            priority
-            data-ai-hint="truck highway"
-          />
-          <div className="container relative z-10 px-4 py-20">
-            <div className="text-center max-w-4xl mx-auto mb-12">
-              <Badge className="mb-6 bg-accent text-accent-foreground px-6 py-1.5 text-sm font-bold border-none shadow-lg">
-                THE WORLD'S LARGEST ARTICULATED DRIVER NETWORK
-              </Badge>
-              <h1 className="text-5xl md:text-8xl font-extrabold text-white mb-8 tracking-tight font-headline leading-tight">
-                Train for Excellence. <br />Partner for Growth.
-              </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-12 font-medium leading-relaxed">
-                PADTI Connect bridges the gap between elite driver training and the global logistics ecosystem. 
-                Whether you're starting your journey, hiring a fleet, or offering industry services, we provide the platform for professional success.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {/* Aspiring Driver CTA */}
-              <Card className="bg-white/95 backdrop-blur-md border-none shadow-2xl rounded-[32px] overflow-hidden group hover:scale-[1.02] transition-all">
-                <CardHeader className="p-8 pb-4">
-                  <div className="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
-                    <GraduationCap className="h-8 w-8" />
-                  </div>
-                  <CardTitle className="text-3xl font-bold text-primary mb-2">For Drivers</CardTitle>
-                  <CardDescription className="text-lg text-muted-foreground">
-                    Get certified, gain experience through internships, and land high-paying roles with verified credentials.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-8 pt-0">
-                  <Button size="lg" className="w-full bg-primary hover:bg-primary/90 text-lg py-8 rounded-2xl font-bold shadow-xl" asChild>
-                    <Link href={driverPath}>
-                      {user ? "Explore Training Programs" : "Start Driver Training"} <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
 
-              {/* Partner CTA */}
-              <Card className="bg-accent/95 backdrop-blur-md border-none shadow-2xl rounded-[32px] overflow-hidden group hover:scale-[1.02] transition-all">
-                <CardHeader className="p-8 pb-4">
-                  <div className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-accent-foreground group-hover:scale-110 transition-transform">
-                    <Handshake className="h-8 w-8" />
-                  </div>
-                  <CardTitle className="text-3xl font-bold text-accent-foreground mb-2">For Partners</CardTitle>
-                  <CardDescription className="text-lg text-accent-foreground/80">
-                    Hire verified talent, offer insurance instruments, or connect as a manufacturer within our global ecosystem.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-8 pt-0 flex gap-4">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="lg" className="flex-1 bg-white text-primary hover:bg-white/90 text-lg py-8 rounded-2xl font-bold shadow-xl border-none gap-2">
-                        Join the Ecosystem <ChevronDown className="h-5 w-5" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="center" className="w-64 p-2 rounded-xl border-none shadow-xl">
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=employer" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                          <Building2 className="h-4 w-4 text-primary" />
-                          <span>Employer & Fleet</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=insurer" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                          <Scale className="h-4 w-4 text-primary" />
-                          <span>Insurance Provider</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=manufacturer" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                          <Truck className="h-4 w-4 text-primary" />
-                          <span>Equipment Manufacturer</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=institution" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                          <Building className="h-4 w-4 text-primary" />
-                          <span>Institutional Partner</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </CardContent>
-              </Card>
+      <main className="flex-grow">
+        <TruckExperience ctaHref={driverPath} ctaLabel={user ? "Explore Training Programs" : "Start Driver Training"} />
+
+        {/* Dual path split */}
+        <section className="grid grid-cols-1 border-b border-border md:grid-cols-2">
+          <Link
+            href={driverPath}
+            data-cursor-hover
+            className="group relative flex min-h-[50vh] flex-col justify-end overflow-hidden border-b border-border bg-card p-10 transition-colors hover:bg-secondary md:min-h-[60vh] md:border-b-0 md:border-r"
+          >
+            <GraduationCap className="mb-8 h-10 w-10 text-primary" />
+            <h3 className="font-headline text-4xl text-bone md:text-5xl">FOR DRIVERS</h3>
+            <p className="mt-4 max-w-sm font-body text-muted-foreground">
+              Get certified, gain real experience, and land verified roles in the global logistics economy.
+            </p>
+            <span className="mt-8 inline-flex items-center gap-2 font-body text-sm font-bold uppercase tracking-widest text-primary">
+              {user ? "Explore Programs" : "Start Training"}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
+            </span>
+          </Link>
+
+          <div className="group relative flex min-h-[50vh] flex-col justify-end overflow-hidden bg-graphite p-10 transition-colors hover:bg-secondary md:min-h-[60vh]">
+            <Handshake className="mb-8 h-10 w-10 text-primary" />
+            <h3 className="font-headline text-4xl text-bone md:text-5xl">FOR PARTNERS</h3>
+            <p className="mt-4 max-w-sm font-body text-muted-foreground">
+              Hire verified talent, offer insurance instruments, or join as a manufacturer in our ecosystem.
+            </p>
+            <div className="mt-8">
+              <PartnerDropdown label="Join the Ecosystem" />
             </div>
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-24 bg-white">
-          <div className="container px-4 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                { icon: Users, val: "25k+", label: "Verified Drivers", color: "text-blue-600" },
-                { icon: Globe, val: "15+", label: "Countries Served", color: "text-green-600" },
-                { icon: Briefcase, val: "850+", label: "Active Job Listings", color: "text-orange-600" },
-                { icon: ShieldCheck, val: "100%", label: "Secure Verification", color: "text-primary" },
-              ].map((stat, i) => (
-                <div key={i} className="text-center p-8 rounded-3xl bg-secondary/20 hover:bg-secondary/40 transition-colors">
-                  <stat.icon className={`h-10 w-10 mx-auto mb-4 ${stat.color}`} />
-                  <h3 className="text-4xl font-black text-foreground mb-1">{stat.val}</h3>
-                  <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
+        {/* Stats */}
+        <section className="border-b border-border py-24">
+          <div className="container mx-auto grid grid-cols-2 gap-8 px-6 md:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <s.icon className="mx-auto mb-4 h-7 w-7 text-primary" />
+                <h3 className="font-headline text-4xl text-bone md:text-5xl">
+                  <StatCounter value={s.value} suffix={s.suffix} />
+                </h3>
+                <p className="mt-2 font-body text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Insights */}
+        <section className="border-b border-border py-28">
+          <div className="container mx-auto px-6">
+            <div className="mb-16 max-w-2xl">
+              <p className="mb-4 font-body text-xs font-bold uppercase tracking-[0.35em] text-primary">Global Impact</p>
+              <KineticText
+                as="h2"
+                trigger="scroll"
+                text="Strategic Industry Insights"
+                className="font-headline text-4xl text-bone md:text-6xl"
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+              {insights.map((item) => (
+                <div key={item.tag} className="flex flex-col justify-between bg-background p-10">
+                  <div>
+                    <p className="mb-6 font-body text-sm font-bold uppercase tracking-widest text-primary">{item.tag}</p>
+                    <p className="font-body text-lg italic leading-relaxed text-muted-foreground">&ldquo;{item.quote}&rdquo;</p>
+                  </div>
+                  <p className="mt-10 font-body text-xs font-bold uppercase tracking-widest text-bone/60">— {item.source}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Strategic Industry Insights Section */}
-        <section className="py-24 bg-secondary/30">
-          <div className="container px-4 mx-auto">
-            <div className="text-center mb-16 space-y-4">
-              <Badge className="bg-primary text-white px-4 py-1">GLOBAL IMPACT</Badge>
-              <h2 className="text-3xl md:text-5xl font-bold text-primary font-headline">Strategic Industry Insights</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Understanding the global logistics landscape and our commitment to excellence.
-              </p>
+        {/* Partners marquee */}
+        <section className="overflow-hidden border-b border-border py-16">
+          <p className="mb-10 text-center font-body text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
+            Institutional Partners &amp; Global Stakeholders
+          </p>
+          <div className="relative flex overflow-hidden">
+            <div className="flex shrink-0 animate-[marquee_28s_linear_infinite] items-center gap-20 pr-20">
+              {[...partners, ...partners].map((p, i) => (
+                <span key={i} className="whitespace-nowrap font-headline text-3xl text-bone/40">
+                  {p}
+                </span>
+              ))}
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="border-none shadow-xl rounded-[32px] bg-white hover:shadow-2xl transition-all h-full flex flex-col">
-                <CardHeader className="p-10 pb-4">
-                  <div className="bg-primary/10 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                    <Sparkles className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-primary">Global Career Mobility</CardTitle>
-                </CardHeader>
-                <CardContent className="p-10 pt-0 flex-grow">
-                  <div className="relative">
-                    <Quote className="absolute -left-4 -top-4 h-8 w-8 text-primary/10" />
-                    <p className="text-lg italic text-muted-foreground leading-relaxed">
-                      "Articulated truck driving is a high-demand global skill. Professional certification from an institutional-grade institute is the primary key to unlocking lucrative international logistics careers."
-                    </p>
-                  </div>
-                  <p className="mt-8 text-xs font-bold text-primary uppercase tracking-widest">— Industry Talent Outlook</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-none shadow-xl rounded-[32px] bg-white hover:shadow-2xl transition-all h-full flex flex-col">
-                <CardHeader className="p-10 pb-4">
-                  <div className="bg-orange-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                    <Globe className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-primary">The Global Shortage</CardTitle>
-                </CardHeader>
-                <CardContent className="p-10 pt-0 flex-grow">
-                  <div className="relative">
-                    <Quote className="absolute -left-4 -top-4 h-8 w-8 text-orange-600/10" />
-                    <p className="text-lg italic text-muted-foreground leading-relaxed">
-                      "The global shortage of truck drivers is set to double by 2028. We must focus on high-quality training and institutional certification to bridge this critical gap in the supply chain."
-                    </p>
-                  </div>
-                  <p className="mt-8 text-xs font-bold text-orange-600 uppercase tracking-widest">— IRU Global Driver Shortage Report</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-none shadow-xl rounded-[32px] bg-primary text-white hover:shadow-2xl transition-all h-full flex flex-col overflow-hidden relative">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                  <TrendingUp className="h-32 w-32" />
-                </div>
-                <CardHeader className="p-10 pb-4 relative z-10">
-                  <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                    <ShieldCheck className="h-6 w-6 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-white">NATEP Alignment</CardTitle>
-                </CardHeader>
-                <CardContent className="p-10 pt-0 flex-grow relative z-10">
-                  <div className="relative">
-                    <Quote className="absolute -left-4 -top-4 h-8 w-8 text-white/20" />
-                    <p className="text-lg italic text-white/90 leading-relaxed">
-                      "Nigeria's National Talent Export Programme (NATEP) aims to position Nigeria as a global hub for talent. PADTI is at the forefront, preparing world-class drivers for the global marketplace."
-                    </p>
-                  </div>
-                  <div className="mt-8 pt-6 border-t border-white/20">
-                    <p className="text-xs font-bold text-accent uppercase tracking-widest mb-1">STRATEGIC ALIGNMENT</p>
-                    <p className="text-sm font-medium text-white/70">Empowering Nigerian Professionals for Global Deployment.</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Institutional Partners */}
-        <section className="py-24 bg-white border-y">
-          <div className="container px-4 mx-auto text-center">
-            <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.3em] mb-12">Institutional Partners & Global Stakeholders</p>
-            <div className="flex flex-wrap justify-center items-center gap-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-              <div className="flex items-center gap-3 font-black text-2xl"><Building2 className="h-8 w-8" /> DHL GLOBAL</div>
-              <div className="flex items-center gap-3 font-black text-2xl"><Building2 className="h-8 w-8" /> MAERSK</div>
-              <div className="flex items-center gap-3 font-black text-2xl"><Building2 className="h-8 w-8" /> AXA INSURANCE</div>
-              <div className="flex items-center gap-3 font-black text-2xl"><Building2 className="h-8 w-8" /> SCANIA</div>
-              <div className="flex items-center gap-3 font-black text-2xl"><Building2 className="h-8 w-8" /> FRSC</div>
-              <div className="flex items-center gap-3 font-black text-2xl"><Building2 className="h-8 w-8" /> NATEP</div>
+            <div className="flex shrink-0 animate-[marquee_28s_linear_infinite] items-center gap-20 pr-20" aria-hidden>
+              {[...partners, ...partners].map((p, i) => (
+                <span key={i} className="whitespace-nowrap font-headline text-3xl text-bone/40">
+                  {p}
+                </span>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="py-32 bg-primary text-white text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-            <Monitor className="h-[500px] w-[500px] absolute -bottom-20 -left-20" />
-            <Briefcase className="h-[500px] w-[500px] absolute -top-20 -right-20" />
-          </div>
-          <div className="container px-4 mx-auto relative z-10">
-            <h2 className="text-4xl md:text-7xl font-bold mb-8 font-headline leading-tight">Join the Future of <br />Articulated Logistics</h2>
-            <p className="text-xl md:text-2xl text-white/80 mb-16 max-w-3xl mx-auto font-medium">
-              Enroll for elite training or register your organization to access a global network of verified articulated driver talent and services.
+        <section className="relative overflow-hidden bg-primary py-32 text-center">
+          <div className="container relative z-10 mx-auto px-6">
+            <KineticText
+              as="h2"
+              trigger="scroll"
+              text="JOIN THE FUTURE OF ARTICULATED LOGISTICS"
+              className="mx-auto max-w-4xl font-headline text-4xl leading-[0.95] text-asphalt md:text-7xl"
+            />
+            <p className="mx-auto mt-8 max-w-2xl font-body text-lg font-medium text-asphalt/80">
+              Enroll for elite training or register your organization to access a global network of verified articulated driver talent.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Button size="lg" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90 px-12 py-9 text-xl font-bold rounded-2xl shadow-2xl border-none" asChild>
-                <Link href={driverPath}>{user ? "View Courses" : "Apply for Training"}</Link>
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="lg" variant="secondary" className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 px-12 py-9 text-xl font-bold rounded-2xl shadow-xl border-none gap-2">
-                    Become a Partner <ChevronDown className="h-6 w-6" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="center" className="w-64 p-2 rounded-xl border-none shadow-2xl">
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=employer" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                      <Building2 className="h-4 w-4 text-primary" />
-                      <span>Employer & Fleet</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=insurer" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                      <Scale className="h-4 w-4 text-primary" />
-                      <span>Insurance Provider</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=manufacturer" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                      <Truck className="h-4 w-4 text-primary" />
-                      <span>Equipment Manufacturer</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=institution" className="cursor-pointer py-3 rounded-lg flex items-center gap-2">
-                      <Building className="h-4 w-4 text-primary" />
-                      <span>Institutional Partner</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            <div className="mt-12 flex flex-col items-center justify-center gap-6 sm:flex-row">
+              <Link
+                href={driverPath}
+                data-cursor-hover
+                className="w-full bg-asphalt px-12 py-5 font-body text-lg font-bold text-bone transition-transform hover:scale-[1.02] sm:w-auto"
+              >
+                {user ? "View Courses" : "Apply for Training"}
+              </Link>
+              <PartnerDropdown label="Become a Partner" onLight />
             </div>
           </div>
         </section>

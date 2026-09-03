@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ['var(--font-archivo)', 'sans-serif'],
+        headline: ['var(--font-anton)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -48,6 +48,12 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        steel: 'hsl(var(--steel))',
+        asphalt: 'hsl(var(--asphalt))',
+        graphite: 'hsl(var(--graphite))',
+        bone: 'hsl(var(--bone))',
+        'safety-amber': 'hsl(var(--safety-amber))',
+        rust: 'hsl(var(--rust))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',
@@ -88,10 +94,15 @@ export default {
             height: '0',
           },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        marquee: 'marquee 28s linear infinite',
       },
     },
   },

@@ -3,54 +3,66 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+    Industrial palette: asphalt/graphite neutrals against a hazard-amber accent,
+    with a desaturated steel-blue as the rare cool counter-note. Split-complementary
+    (amber ~28° vs steel ~205°), grounded in real trucking/road-safety semiotics
+    rather than a decorative gradient.
+  */
   :root {
-    --background: 220 10% 95%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 219 65% 45%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 181 85% 55%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 219 65% 45%;
-    --radius: 0.75rem;
-    --chart-1: 219 65% 45%;
-    --chart-2: 181 85% 55%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --background: 220 15% 6%;
+    --foreground: 40 20% 96%;
+    --card: 220 12% 10%;
+    --card-foreground: 40 20% 96%;
+    --popover: 220 14% 8%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 28 100% 54%;
+    --primary-foreground: 220 15% 6%;
+    --secondary: 220 10% 15%;
+    --secondary-foreground: 40 20% 96%;
+    --muted: 220 10% 15%;
+    --muted-foreground: 220 8% 62%;
+    --accent: 16 75% 40%;
+    --accent-foreground: 40 20% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 20% 96%;
+    --border: 220 10% 18%;
+    --input: 220 10% 18%;
+    --ring: 28 100% 54%;
+    --radius: 0.5rem;
+    --chart-1: 28 100% 54%;
+    --chart-2: 205 25% 55%;
+    --chart-3: 16 75% 40%;
+    --chart-4: 40 20% 80%;
+    --chart-5: 220 10% 40%;
+    --steel: 205 25% 55%;
+    --asphalt: 220 15% 6%;
+    --graphite: 220 12% 10%;
+    --bone: 40 20% 96%;
+    --safety-amber: 28 100% 54%;
+    --rust: 16 75% 40%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 219 65% 55%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 181 85% 55%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --background: 220 15% 6%;
+    --foreground: 40 20% 96%;
+    --card: 220 12% 10%;
+    --card-foreground: 40 20% 96%;
+    --popover: 220 14% 8%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 28 100% 54%;
+    --primary-foreground: 220 15% 6%;
+    --secondary: 220 10% 15%;
+    --secondary-foreground: 40 20% 96%;
+    --muted: 220 10% 15%;
+    --muted-foreground: 220 8% 62%;
+    --accent: 16 75% 40%;
+    --accent-foreground: 40 20% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 20% 96%;
+    --border: 220 10% 18%;
+    --input: 220 10% 18%;
+    --ring: 28 100% 54%;
   }
 }
 
