@@ -22,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import Image from "next/image";
 import { useUser } from "@/firebase";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { PathTile } from "@/components/path-tile";
@@ -55,7 +56,14 @@ const insights = [
   },
 ];
 
-const partners = ["DHL Global", "Maersk", "AXA Insurance", "Scania", "FRSC", "NATEP"];
+const partners = [
+  { name: "DHL Global", logo: undefined },
+  { name: "Maersk", logo: undefined },
+  { name: "AXA Insurance", logo: undefined },
+  { name: "Scania", logo: undefined },
+  { name: "FRSC", logo: "/images/logos/frsc.png" },
+  { name: "NATEP", logo: undefined },
+];
 
 function PartnerMenu({ label, glowIcon = false, roundRight = false }: { label: string; glowIcon?: boolean; roundRight?: boolean }) {
   return (
@@ -209,11 +217,18 @@ export default function Home() {
             Institutional Partners &amp; Global Stakeholders
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {partners.map((p) => (
-              <span key={p} className="font-headline text-xl text-ink/70">
-                {p}
-              </span>
-            ))}
+            {partners.map((p) =>
+              p.logo ? (
+                <div key={p.name} className="flex items-center gap-2">
+                  <Image src={p.logo} alt={p.name} width={28} height={28} className="h-7 w-7 object-contain" />
+                  <span className="font-headline text-xl text-ink/70">{p.name}</span>
+                </div>
+              ) : (
+                <span key={p.name} className="font-headline text-xl text-ink/70">
+                  {p.name}
+                </span>
+              )
+            )}
           </div>
         </section>
 
