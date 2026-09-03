@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import { Public_Sans, Fraunces } from 'next/font/google';
 import './globals.css';
 import { Chatbot } from '@/components/chatbot';
+import { Toaster } from '@/components/ui/toaster';
 import NextTopLoader from 'nextjs-toploader';
 import { FirebaseClientProvider } from '@/firebase';
 
@@ -47,6 +48,7 @@ export default function RootLayout({
           />
           {children}
           <Chatbot />
+          <Toaster />
         </FirebaseClientProvider>
       </body>
     </html>
