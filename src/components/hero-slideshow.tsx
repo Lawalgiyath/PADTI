@@ -5,19 +5,19 @@ import Image from 'next/image';
 
 const slides = [
   {
-    src: '/images/facility-visit/padti-facility-visit-03.jpeg',
-    alt: 'FRSC officials and PADTI staff touring the PADTI training facility',
-    focus: 'center 35%',
+    src: '/images/equipment/scania-r-series.jpg',
+    alt: 'Articulated truck on the highway, the class of vehicle PADTI trains drivers to operate',
+    focus: 'center 45%',
   },
   {
-    src: '/images/facility-visit/padti-facility-visit-13.jpeg',
-    alt: 'PADTI staff and FRSC officers on site at the training facility',
-    focus: 'center 30%',
+    src: '/images/facility-visit/padti-facility-visit-11.jpeg',
+    alt: 'The male hostel building at the PADTI training facility',
+    focus: 'center 16%',
   },
   {
-    src: '/images/facility-visit/padti-facility-visit-17.jpeg',
-    alt: 'FRSC officials walking the PADTI facility grounds',
-    focus: 'center 28%',
+    src: '/images/equipment/mercedes-actros.jpg',
+    alt: 'A heavy-duty articulated truck, representative of the fleet PADTI trainees learn to handle',
+    focus: 'center 40%',
   },
   {
     src: '/images/planning-meeting/padti-planning-meeting-02.jpeg',
