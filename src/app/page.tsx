@@ -13,6 +13,7 @@ import {
   Truck,
   Building,
   Building2,
+  Network,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -56,15 +57,26 @@ const insights = [
 
 const partners = ["DHL Global", "Maersk", "AXA Insurance", "Scania", "FRSC", "NATEP"];
 
-function PartnerMenu({ label }: { label: string }) {
+function PartnerMenu({ label, glowIcon = false, roundRight = false }: { label: string; glowIcon?: boolean; roundRight?: boolean }) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="border border-cream/40 px-8 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:border-cream hover:bg-cream hover:text-ink">
-          {label}
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" className="w-64 rounded-none border-border p-2">
+    <div className="group/glow relative inline-flex">
+      {glowIcon && (
+        <Network
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-6 w-6 -translate-x-1/2 -translate-y-1/2 scale-75 text-accent opacity-0 transition-all duration-500 ease-out group-hover/glow:translate-y-[145%] group-hover/glow:scale-100 group-hover/glow:opacity-100 group-hover/glow:drop-shadow-[0_0_10px_hsl(var(--accent))]"
+          aria-hidden
+        />
+      )}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button
+            className={`relative z-10 border border-cream/40 bg-transparent px-8 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:border-cream hover:bg-cream hover:text-ink ${
+              roundRight ? "rounded-r-full" : ""
+            }`}
+          >
+            {label}
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="center" className="w-64 rounded-none border-border p-2">
         <DropdownMenuItem asChild>
           <Link href="/auth/signup-partner?role=employer" className="flex cursor-pointer items-center gap-2 py-3">
             <Building2 className="h-4 w-4 text-primary" /> <span>Employer &amp; Fleet</span>
@@ -85,8 +97,9 @@ function PartnerMenu({ label }: { label: string }) {
             <Building className="h-4 w-4 text-primary" /> <span>Institutional Partner</span>
           </Link>
         </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
 
@@ -96,15 +109,15 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <Navbar />
+      <Navbar transparentOnTop />
 
       <main className="flex-grow">
         {/* Hero — minimal, one focal photo, one action */}
-        <section className="relative flex min-h-[92vh] flex-col justify-end pt-16">
+        <section className="relative flex min-h-[92vh] flex-col justify-end">
           <HeroSlideshow />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/10" />
 
-          <p className="relative z-10 px-6 pt-10 font-body text-xs font-bold uppercase tracking-[0.35em] text-cream/80 md:px-16">
+          <p className="relative z-10 px-6 pt-28 font-body text-xs font-bold uppercase tracking-[0.35em] text-cream/80 md:px-16">
             Professional. Verified. Global.
           </p>
 
@@ -117,15 +130,15 @@ export default function Home() {
             <p className="mt-6 max-w-lg font-body text-base text-cream/70 md:text-lg">
               PADTI Connect bridges elite driver training and the global logistics ecosystem.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-9 flex flex-wrap items-center">
               <Link
                 href={driverPath}
-                className="inline-flex items-center gap-2 bg-sage px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
+                className="group inline-flex items-center gap-2 rounded-l-full bg-sage py-4 pl-8 pr-7 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
               >
                 {user ? "Explore Programs" : "Start Driver Training"}
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
               </Link>
-              <PartnerMenu label="Join the Ecosystem" />
+              <PartnerMenu label="Join the Ecosystem" glowIcon roundRight />
             </div>
           </div>
 

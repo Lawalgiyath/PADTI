@@ -20,7 +20,7 @@ import {
   Scale,
   Building
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 import {
   DropdownMenu,
@@ -34,10 +34,21 @@ import { useUser, useAuth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export function Navbar() {
+export function Navbar({ transparentOnTop = false }: { transparentOnTop?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { user, loading } = useUser();
   const auth = useAuth();
+
+  useEffect(() => {
+    if (!transparentOnTop) return;
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [transparentOnTop]);
+
+  const isGhost = transparentOnTop && !scrolled;
 
   const handleSignOut = async () => {
     await signOut(auth);
@@ -49,15 +60,27 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav
+      className={`z-50 w-full transition-colors duration-300 ${
+        transparentOnTop ? "fixed inset-x-0 top-0" : "sticky top-0"
+      } ${
+        isGhost
+          ? "border-b border-transparent bg-transparent"
+          : "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <div className="p-1">
-                <Logo className="h-8 w-8 text-primary" />
+                <Logo className={`h-8 w-8 ${isGhost ? "text-white" : "text-primary"}`} />
               </div>
-              <span className="text-xl font-bold tracking-tight text-primary font-headline">
+              <span
+                className={`text-xl font-bold tracking-tight font-headline ${
+                  isGhost ? "text-white" : "text-primary"
+                }`}
+              >
                 PADTI
               </span>
             </Link>
@@ -70,15 +93,21 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-sm font-medium text-foreground/70 transition-colors hover:text-primary"
+                  className={`text-sm font-medium transition-colors ${
+                    isGhost ? "text-white/85 hover:text-white" : "text-foreground/70 hover:text-primary"
+                  }`}
                 >
                   {link.name}
                 </Link>
               ))}
-              
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-1 text-sm font-medium text-foreground/70 transition-colors hover:text-primary outline-none">
+                  <button
+                    className={`flex items-center gap-1 text-sm font-medium transition-colors outline-none ${
+                      isGhost ? "text-white/85 hover:text-white" : "text-foreground/70 hover:text-primary"
+                    }`}
+                  >
                     Marketplace <ChevronDown className="h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
@@ -118,7 +147,11 @@ export function Navbar() {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-1 text-sm font-medium text-foreground/70 transition-colors hover:text-primary outline-none">
+                  <button
+                    className={`flex items-center gap-1 text-sm font-medium transition-colors outline-none ${
+                      isGhost ? "text-white/85 hover:text-white" : "text-foreground/70 hover:text-primary"
+                    }`}
+                  >
                     Partners <ChevronDown className="h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
@@ -138,7 +171,7 @@ export function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <div className="flex items-center border-l pl-8 ml-2">
+              <div className={`flex items-center pl-8 ml-2 ${isGhost ? "border-l border-white/25" : "border-l"}`}>
                 {loading ? (
                   <div className="h-9 w-9 rounded-full bg-secondary animate-pulse" />
                 ) : user ? (
@@ -185,7 +218,11 @@ export function Navbar() {
                   </DropdownMenu>
                 ) : (
                   <div className="flex items-center gap-3">
-                    <Button variant="ghost" className="font-bold text-foreground/70 hover:text-primary" asChild>
+                    <Button
+                      variant="ghost"
+                      className={`font-bold ${isGhost ? "text-white/90 hover:bg-white/10 hover:text-white" : "text-foreground/70 hover:text-primary"}`}
+                      asChild
+                    >
                       <Link href="/auth/signin">Sign In</Link>
                     </Button>
                     <DropdownMenu>
@@ -232,7 +269,9 @@ export function Navbar() {
             )}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none"
+              className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${
+                isGhost && !isOpen ? "text-white hover:text-white/80" : "text-foreground hover:text-primary"
+              }`}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
