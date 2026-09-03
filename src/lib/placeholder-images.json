@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "hero-truck",
-      "description": "Modern articulated truck on a highway",
-      "imageUrl": "https://picsum.photos/seed/truck1/1200/600",
-      "imageHint": "truck highway"
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-03.jpeg",
+      "imageHint": "facility tour group"
     },
     {
       "id": "simulator",
@@ -14,9 +14,9 @@
     },
     {
       "id": "training-ground",
-      "description": "Driver training facility",
-      "imageUrl": "https://picsum.photos/seed/train/800/600",
-      "imageHint": "training facility"
+      "description": "PADTI training facility grounds and driving track",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-08.jpeg",
+      "imageHint": "training facility grounds"
     },
     {
       "id": "student-success",
@@ -26,9 +26,213 @@
     },
     {
       "id": "employer-partner",
-      "description": "Corporate logistics center",
-      "imageUrl": "https://picsum.photos/seed/logistics/600/400",
-      "imageHint": "logistics center"
+      "description": "PADTI leadership and partners in a strategic planning session",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-02.jpeg",
+      "imageHint": "partnership planning meeting"
+    },
+    {
+      "id": "facility-visit-01",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 1 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-01.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-02",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 2 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-02.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-03",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 3 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-03.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-04",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 4 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-04.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-05",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 5 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-05.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-06",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 6 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-06.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-07",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 7 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-07.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-08",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 8 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-08.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-09",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 9 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-09.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-10",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 10 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-10.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-11",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 11 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-11.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-12",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 12 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-12.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-13",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 13 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-13.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-14",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 14 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-14.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-15",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 15 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-15.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-16",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 16 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-16.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-17",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 17 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-17.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-18",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 18 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-18.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-19",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 19 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-19.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-20",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 20 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-20.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-21",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 21 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-21.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-22",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 22 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-22.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "facility-visit-23",
+      "description": "FRSC officials and PADTI staff touring the PADTI training facility (photo 23 of 23)",
+      "imageUrl": "/images/facility-visit/padti-facility-visit-23.jpeg",
+      "imageHint": "facility tour FRSC visit"
+    },
+    {
+      "id": "planning-meeting-01",
+      "description": "PADTI leadership strategic planning session (photo 1 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-01.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-02",
+      "description": "PADTI leadership strategic planning session (photo 2 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-02.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-03",
+      "description": "PADTI leadership strategic planning session (photo 3 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-03.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-04",
+      "description": "PADTI leadership strategic planning session (photo 4 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-04.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-05",
+      "description": "PADTI leadership strategic planning session (photo 5 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-05.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-06",
+      "description": "PADTI leadership strategic planning session (photo 6 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-06.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-07",
+      "description": "PADTI leadership strategic planning session (photo 7 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-07.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-08",
+      "description": "PADTI leadership strategic planning session (photo 8 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-08.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-09",
+      "description": "PADTI leadership strategic planning session (photo 9 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-09.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-10",
+      "description": "PADTI leadership strategic planning session (photo 10 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-10.jpeg",
+      "imageHint": "boardroom planning meeting"
+    },
+    {
+      "id": "planning-meeting-11",
+      "description": "PADTI leadership strategic planning session (photo 11 of 11)",
+      "imageUrl": "/images/planning-meeting/padti-planning-meeting-11.jpeg",
+      "imageHint": "boardroom planning meeting"
     }
   ]
 }
