@@ -1,5 +1,5 @@
 import type {Metadata} from 'next';
-import { Public_Sans } from 'next/font/google';
+import { Public_Sans, Fraunces } from 'next/font/google';
 import './globals.css';
 import { Chatbot } from '@/components/chatbot';
 import NextTopLoader from 'nextjs-toploader';
@@ -9,6 +9,14 @@ const publicSans = Public_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-public-sans',
+  display: 'swap',
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-fraunces',
   display: 'swap',
 });
 
@@ -23,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={publicSans.variable}>
+    <html lang="en" suppressHydrationWarning className={`${publicSans.variable} ${fraunces.variable}`}>
       <body className="font-body antialiased bg-background text-foreground min-h-screen">
         <FirebaseClientProvider>
           <NextTopLoader

@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['var(--font-public-sans)', 'sans-serif'],
-        headline: ['var(--font-public-sans)', 'sans-serif'],
+        headline: ['var(--font-fraunces)', 'serif'],
         code: ['monospace'],
       },
       colors: {
@@ -48,13 +48,11 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        navy: 'hsl(var(--navy))',
-        'navy-deep': 'hsl(var(--navy-deep))',
-        'blue-600': 'hsl(var(--blue-600))',
-        'surface-alt': 'hsl(var(--surface-alt))',
-        'surface-alt-2': 'hsl(var(--surface-alt-2))',
-        gold: 'hsl(var(--gold))',
-        'gold-dark': 'hsl(var(--gold-dark))',
+        ink: 'hsl(var(--ink))',
+        sage: 'hsl(var(--sage))',
+        'sage-dark': 'hsl(var(--sage-dark))',
+        terracotta: 'hsl(var(--terracotta))',
+        cream: 'hsl(var(--cream))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',

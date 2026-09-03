@@ -3,21 +3,16 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
   Globe,
   ShieldCheck,
   Users,
   Briefcase,
-  GraduationCap,
-  Handshake,
   Scale,
   Truck,
   Building,
   Building2,
-  Quote,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -28,6 +23,8 @@ import {
 import Link from "next/link";
 import { useUser } from "@/firebase";
 import { HeroSlideshow } from "@/components/hero-slideshow";
+import { PathTile } from "@/components/path-tile";
+import { SectionLabel } from "@/components/section-label";
 
 const stats = [
   { icon: Users, val: "25,000+", label: "Verified Drivers" },
@@ -59,6 +56,40 @@ const insights = [
 
 const partners = ["DHL Global", "Maersk", "AXA Insurance", "Scania", "FRSC", "NATEP"];
 
+function PartnerMenu({ label }: { label: string }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="border border-cream/40 px-8 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:border-cream hover:bg-cream hover:text-ink">
+          {label}
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="center" className="w-64 rounded-none border-border p-2">
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=employer" className="flex cursor-pointer items-center gap-2 py-3">
+            <Building2 className="h-4 w-4 text-primary" /> <span>Employer &amp; Fleet</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=insurer" className="flex cursor-pointer items-center gap-2 py-3">
+            <Scale className="h-4 w-4 text-primary" /> <span>Insurance Provider</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=manufacturer" className="flex cursor-pointer items-center gap-2 py-3">
+            <Truck className="h-4 w-4 text-primary" /> <span>Equipment Manufacturer</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/signup-partner?role=institution" className="flex cursor-pointer items-center gap-2 py-3">
+            <Building className="h-4 w-4 text-primary" /> <span>Institutional Partner</span>
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 export default function Home() {
   const { user } = useUser();
   const driverPath = user ? "/programs" : "/auth/signup";
@@ -68,205 +99,124 @@ export default function Home() {
       <Navbar />
 
       <main className="flex-grow">
-        {/* Hero */}
-        <section className="relative flex min-h-[88vh] items-center pt-16">
+        {/* Hero — minimal, one focal photo, one action */}
+        <section className="relative flex min-h-[92vh] flex-col justify-end pt-16">
           <HeroSlideshow />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/75 to-navy-deep/30" />
-          <div className="container relative z-10 mx-auto px-4 py-20">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <Badge className="mb-6 border-none bg-gold px-6 py-1.5 text-sm font-bold tracking-wide text-navy-deep shadow-lg">
-                THE WORLD&apos;S LARGEST ARTICULATED DRIVER NETWORK
-              </Badge>
-              <h1 className="mb-4 font-headline text-5xl font-extrabold leading-[1.05] tracking-tight text-white md:text-7xl">
-                Train for Excellence. Partner for Growth.
-              </h1>
-              <div className="mx-auto mb-6 h-1 w-20 rounded-full bg-gold" />
-              <p className="text-lg font-medium leading-relaxed text-white/85 md:text-xl">
-                PADTI Connect bridges elite driver training and the global logistics ecosystem — for drivers, employers, and partners alike.
-              </p>
-            </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/10" />
 
-            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
-              <Card className="overflow-hidden rounded-2xl border-none bg-white shadow-[0_20px_50px_-15px_rgba(10,37,64,0.45)]">
-                <div className="h-1.5 bg-primary" />
-                <CardHeader className="p-8 pb-4">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <GraduationCap className="h-7 w-7" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-navy-deep">For Drivers</CardTitle>
-                  <CardDescription className="text-base text-muted-foreground">
-                    Get certified, gain real experience, and land verified roles in the global logistics economy.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-8 pt-0">
-                  <Button size="lg" className="w-full rounded-xl bg-primary py-6 text-base font-bold hover:bg-blue-600" asChild>
-                    <Link href={driverPath}>
-                      {user ? "Explore Programs" : "Start Driver Training"} <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+          <p className="relative z-10 px-6 pt-10 font-body text-xs font-bold uppercase tracking-[0.35em] text-cream/80 md:px-16">
+            Professional. Verified. Global.
+          </p>
 
-              <Card className="overflow-hidden rounded-2xl border-none bg-white shadow-[0_20px_50px_-15px_rgba(10,37,64,0.45)]">
-                <div className="h-1.5 bg-gold" />
-                <CardHeader className="p-8 pb-4">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/15 text-gold-dark">
-                    <Handshake className="h-7 w-7" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-navy-deep">For Partners</CardTitle>
-                  <CardDescription className="text-base text-muted-foreground">
-                    Hire verified talent, offer insurance instruments, or join as a manufacturer in our ecosystem.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-8 pt-0">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="lg" variant="outline" className="w-full rounded-xl border-2 border-navy-deep py-6 text-base font-bold text-navy-deep hover:bg-navy-deep hover:text-white">
-                        Join the Ecosystem
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="center" className="w-64 rounded-xl p-2 shadow-xl">
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=employer" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                          <Building2 className="h-4 w-4 text-primary" /> <span>Employer &amp; Fleet</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=insurer" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                          <Scale className="h-4 w-4 text-primary" /> <span>Insurance Provider</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=manufacturer" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                          <Truck className="h-4 w-4 text-primary" /> <span>Equipment Manufacturer</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/auth/signup-partner?role=institution" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                          <Building className="h-4 w-4 text-primary" /> <span>Institutional Partner</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </CardContent>
-              </Card>
+          <div className="relative z-10 px-6 pb-16 pt-6 md:px-16">
+            <h1 className="max-w-3xl font-headline text-5xl leading-[1.05] text-cream md:text-7xl">
+              Train for excellence.
+              <br />
+              <span className="italic text-cream/90">Partner for growth.</span>
+            </h1>
+            <p className="mt-6 max-w-lg font-body text-base text-cream/70 md:text-lg">
+              PADTI Connect bridges elite driver training and the global logistics ecosystem.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <Link
+                href={driverPath}
+                className="inline-flex items-center gap-2 bg-sage px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
+              >
+                {user ? "Explore Programs" : "Start Driver Training"}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <PartnerMenu label="Join the Ecosystem" />
             </div>
+          </div>
+
+          <div className="absolute bottom-6 right-6 z-10 hidden border border-cream/25 bg-ink/40 px-5 py-3 backdrop-blur-sm sm:block">
+            <p className="font-body text-[11px] font-bold uppercase tracking-widest text-cream/60">FRSC-Compliant Training</p>
+            <p className="font-headline text-lg text-cream">NATEP-Aligned Certification</p>
+          </div>
+        </section>
+
+        {/* Choose your path — asymmetric photo tiles, not floating cards */}
+        <section className="bg-paper bg-background px-6 py-24 md:px-16">
+          <SectionLabel>Choose Your Path</SectionLabel>
+          <div className="grid grid-cols-1 gap-1 md:grid-cols-2">
+            <PathTile
+              href={driverPath}
+              image="/images/facility-visit/padti-facility-visit-01.jpeg"
+              label="For Drivers"
+              description="Get certified, gain real experience, and land verified roles in the global logistics economy."
+            />
+            <PathTile
+              href="/employers"
+              image="/images/planning-meeting/padti-planning-meeting-02.jpeg"
+              label="For Partners"
+              description="Hire verified talent, offer insurance instruments, or join as a manufacturer in our ecosystem."
+            />
           </div>
         </section>
 
         {/* Stats */}
-        <section className="bg-surface-alt py-20">
-          <div className="container mx-auto grid grid-cols-2 gap-8 px-4 md:grid-cols-4">
+        <section className="bg-paper bg-secondary px-6 py-20 md:px-16">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
             {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
-                  <s.icon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="font-headline text-3xl font-extrabold text-navy-deep md:text-4xl">{s.val}</h3>
-                <div className="mx-auto my-2 h-0.5 w-6 bg-gold" />
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{s.label}</p>
+              <div key={s.label}>
+                <s.icon className="mb-4 h-6 w-6 text-sage" />
+                <h3 className="font-headline text-4xl text-ink md:text-5xl">{s.val}</h3>
+                <p className="mt-2 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Insights */}
-        <section className="bg-white py-24">
-          <div className="container mx-auto px-4">
-            <div className="mb-14 text-center">
-              <Badge className="mb-4 border-none bg-primary px-4 py-1 text-white">GLOBAL IMPACT</Badge>
-              <h2 className="font-headline text-3xl font-bold text-navy-deep md:text-4xl">Strategic Industry Insights</h2>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {insights.map((item, i) => {
-                const featured = i === 2;
-                return (
-                  <Card
-                    key={item.tag}
-                    className={
-                      featured
-                        ? "flex h-full flex-col rounded-2xl border-none bg-navy-deep shadow-[0_20px_50px_-15px_rgba(10,37,64,0.5)]"
-                        : "flex h-full flex-col rounded-2xl border-l-4 border-primary bg-white shadow-md transition-shadow hover:shadow-xl"
-                    }
-                  >
-                    <CardHeader className="p-8 pb-2">
-                      <Quote className={featured ? "mb-4 h-6 w-6 text-gold" : "mb-4 h-6 w-6 text-primary/40"} />
-                      <CardTitle className={featured ? "text-lg font-bold text-white" : "text-lg font-bold text-navy-deep"}>
-                        {item.tag}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow p-8 pt-2">
-                      <p className={featured ? "text-base italic leading-relaxed text-white/80" : "text-base italic leading-relaxed text-muted-foreground"}>
-                        &ldquo;{item.quote}&rdquo;
-                      </p>
-                      <p className={featured ? "mt-6 text-xs font-bold uppercase tracking-widest text-gold" : "mt-6 text-xs font-bold uppercase tracking-widest text-primary/70"}>
-                        — {item.source}
-                      </p>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+        <section className="bg-paper bg-background px-6 py-28 md:px-16">
+          <SectionLabel>Strategic Industry Insights</SectionLabel>
+          <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-3">
+            {insights.map((item) => (
+              <div key={item.tag} className="flex flex-col justify-between bg-background p-10">
+                <div>
+                  <p className="mb-6 font-body text-xs font-bold uppercase tracking-widest text-sage">{item.tag}</p>
+                  <p className="font-headline text-xl italic leading-relaxed text-ink">&ldquo;{item.quote}&rdquo;</p>
+                </div>
+                <p className="mt-10 font-body text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  — {item.source}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Partners */}
-        <section className="bg-surface-alt py-16">
-          <div className="container mx-auto px-4 text-center">
-            <p className="mb-10 text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
-              Institutional Partners &amp; Global Stakeholders
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-              {partners.map((p) => (
-                <span key={p} className="text-lg font-bold text-navy-deep/70">{p}</span>
-              ))}
-            </div>
+        <section className="bg-paper bg-secondary px-6 py-16 text-center md:px-16">
+          <p className="mb-10 font-body text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">
+            Institutional Partners &amp; Global Stakeholders
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+            {partners.map((p) => (
+              <span key={p} className="font-headline text-xl text-ink/70">
+                {p}
+              </span>
+            ))}
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="bg-navy-deep py-24 text-center text-white">
-          <div className="container mx-auto px-4">
-            <h2 className="mb-6 font-headline text-3xl font-bold leading-tight md:text-5xl">
-              Join the Future of Articulated Logistics
-            </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-white/75">
-              Enroll for elite training or register your organization to access a global network of verified articulated driver talent.
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button size="lg" className="w-full rounded-xl bg-gold px-10 py-6 text-base font-bold text-navy-deep shadow-[0_10px_30px_-8px_rgba(216,160,45,0.6)] hover:bg-gold/90 sm:w-auto" asChild>
-                <Link href={driverPath}>{user ? "View Courses" : "Apply for Training"}</Link>
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="lg" variant="outline" className="w-full rounded-xl border-2 border-white/40 bg-transparent px-10 py-6 text-base font-bold text-white hover:bg-white hover:text-navy-deep sm:w-auto">
-                    Become a Partner
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="center" className="w-64 rounded-xl p-2 shadow-xl">
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=employer" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                      <Building2 className="h-4 w-4 text-primary" /> <span>Employer &amp; Fleet</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=insurer" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                      <Scale className="h-4 w-4 text-primary" /> <span>Insurance Provider</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=manufacturer" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                      <Truck className="h-4 w-4 text-primary" /> <span>Equipment Manufacturer</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/auth/signup-partner?role=institution" className="flex cursor-pointer items-center gap-2 rounded-lg py-3">
-                      <Building className="h-4 w-4 text-primary" /> <span>Institutional Partner</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+        <section className="bg-ink px-6 py-28 text-center md:px-16">
+          <h2 className="mx-auto max-w-3xl font-headline text-4xl leading-tight text-cream md:text-6xl">
+            Join the future of <span className="italic">articulated logistics</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl font-body text-base text-cream/60 md:text-lg">
+            Enroll for elite training or register your organization to access a global network of verified talent.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href={driverPath}
+              className="inline-flex items-center gap-2 bg-sage px-9 py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
+            >
+              {user ? "View Courses" : "Apply for Training"}
+            </Link>
+            <PartnerMenu label="Become a Partner" />
           </div>
         </section>
       </main>

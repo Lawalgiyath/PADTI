@@ -4,78 +4,74 @@
 
 @layer base {
   /*
-    Institutional blue, matching PADTI's original brand and the register of a
-    site tied to FRSC/NATEP: a trustworthy government-grade blue (close to
-    USWDS primary blue) on a clean white/light-neutral ground, with a
-    restrained gold accent for emphasis. Light background, not dark — that's
-    the norm for official/regulatory sites for a reason (trust, legibility,
-    print-friendliness), not a stylistic default.
+    Editorial palette, adapted from what reads as considered/human on
+    reference sites in this register: warm cream paper instead of clinical
+    white, near-black ink instead of pure black, a muted sage-olive as the
+    primary accent (calm, trustworthy, distinct from every driving-school
+    blue) and a rare terracotta highlight reserved for real emphasis. Full
+    lightness range from cream (98%) down to ink (13%) so depth reads from
+    value contrast, not just borders.
   */
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 30% 14%;
-    --card: 0 0% 100%;
-    --card-foreground: 215 30% 14%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 30% 14%;
-    --primary: 212 100% 31%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 94%;
-    --secondary-foreground: 215 30% 14%;
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 12% 42%;
-    --accent: 42 88% 48%;
-    --accent-foreground: 215 30% 14%;
-    --destructive: 0 72% 45%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 210 18% 88%;
-    --input: 210 18% 88%;
-    --ring: 212 100% 31%;
-    --radius: 0.5rem;
-    --chart-1: 212 100% 31%;
-    --chart-2: 42 88% 48%;
-    --chart-3: 205 25% 55%;
-    --chart-4: 215 12% 60%;
-    --chart-5: 215 30% 25%;
+    --background: 42 35% 97%;
+    --foreground: 20 8% 15%;
+    --card: 42 40% 99%;
+    --card-foreground: 20 8% 15%;
+    --popover: 42 40% 99%;
+    --popover-foreground: 20 8% 15%;
+    --primary: 138 18% 33%;
+    --primary-foreground: 42 40% 98%;
+    --secondary: 36 25% 92%;
+    --secondary-foreground: 20 8% 15%;
+    --muted: 36 25% 92%;
+    --muted-foreground: 20 6% 40%;
+    --accent: 8 42% 42%;
+    --accent-foreground: 42 40% 98%;
+    --destructive: 0 55% 42%;
+    --destructive-foreground: 42 40% 98%;
+    --border: 36 18% 85%;
+    --input: 36 18% 85%;
+    --ring: 138 18% 33%;
+    --radius: 0.125rem;
+    --chart-1: 138 18% 33%;
+    --chart-2: 8 42% 42%;
+    --chart-3: 20 8% 30%;
+    --chart-4: 36 20% 65%;
+    --chart-5: 138 12% 55%;
 
-    /*
-      Expanded scale for actual value contrast (perceived depth needs a real
-      lightness range, not four colors all sitting at 92-100%) and a
-      deliberate 60/30/10 distribution: ~60% neutral (background/surface-alt),
-      ~30% primary blue, ~10% gold reserved for the single highest-priority
-      action per view (isolation / Von Restorff effect) so it still reads as
-      special. Gold specifically because certification/training brands read
-      it as "standard, credential, achievement" — not decorative.
-    */
-    --navy: 215 45% 18%;
-    --navy-deep: 218 55% 10%;
-    --blue-600: 212 90% 40%;
-    --surface-alt: 212 45% 95%;
-    --surface-alt-2: 212 35% 90%;
-    --gold: 42 88% 48%;
-    --gold-dark: 38 82% 38%;
+    --ink: 20 10% 12%;
+    --sage: 138 18% 33%;
+    --sage-dark: 138 22% 24%;
+    --terracotta: 8 42% 42%;
+    --cream: 42 40% 98%;
   }
 
   .dark {
-    --background: 215 35% 9%;
-    --foreground: 210 20% 96%;
-    --card: 215 30% 12%;
-    --card-foreground: 210 20% 96%;
-    --popover: 215 30% 12%;
-    --popover-foreground: 210 20% 96%;
-    --primary: 212 90% 55%;
-    --primary-foreground: 215 35% 9%;
-    --secondary: 215 25% 16%;
-    --secondary-foreground: 210 20% 96%;
-    --muted: 215 25% 16%;
-    --muted-foreground: 215 12% 65%;
-    --accent: 42 88% 55%;
-    --accent-foreground: 215 35% 9%;
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 210 20% 96%;
-    --border: 215 25% 20%;
-    --input: 215 25% 20%;
-    --ring: 212 90% 55%;
+    --background: 20 12% 9%;
+    --foreground: 42 30% 94%;
+    --card: 20 10% 13%;
+    --card-foreground: 42 30% 94%;
+    --popover: 20 10% 13%;
+    --popover-foreground: 42 30% 94%;
+    --primary: 138 22% 50%;
+    --primary-foreground: 20 12% 9%;
+    --secondary: 20 8% 18%;
+    --secondary-foreground: 42 30% 94%;
+    --muted: 20 8% 18%;
+    --muted-foreground: 36 10% 65%;
+    --accent: 8 42% 55%;
+    --accent-foreground: 20 12% 9%;
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 42 30% 94%;
+    --border: 20 8% 22%;
+    --input: 20 8% 22%;
+    --ring: 138 22% 50%;
+  }
+}
+
+@layer base {
+  .bg-paper {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 }
 
