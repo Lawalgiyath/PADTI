@@ -129,7 +129,7 @@ export default function Home() {
             Professional. Verified. Global.
           </p>
 
-          <div className="relative z-10 px-6 pb-16 pt-6 md:px-16">
+          <div className="relative z-10 px-6 pb-16 pt-6 md:px-16 pointer-events-none">
             <h1 className="max-w-3xl font-headline text-5xl leading-[1.05] text-cream md:text-7xl">
               Train for excellence.
               <br />
@@ -138,7 +138,7 @@ export default function Home() {
             <p className="mt-6 max-w-lg font-body text-base text-cream/70 md:text-lg">
               PADTI Connect bridges elite driver training and the global logistics ecosystem.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-5">
+            <div className="mt-9 flex flex-wrap items-center gap-5 pointer-events-auto">
               <Link
                 href={driverPath}
                 className="group inline-flex items-center gap-2 rounded-l-full rounded-r-md bg-sage py-4 pl-8 pr-7 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark"
