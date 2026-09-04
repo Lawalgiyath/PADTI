@@ -60,9 +60,9 @@ export function Footer() {
             &copy; {new Date().getFullYear()} PADTI Connect. All rights reserved. Professional Articulated Driver Training Institute.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="#" className="text-xs text-muted-foreground hover:text-primary">Privacy Policy</Link>
-            <Link href="#" className="text-xs text-muted-foreground hover:text-primary">Terms of Service</Link>
-            <Link href="#" className="text-xs text-muted-foreground hover:text-primary">Compliance</Link>
+            <Link href="/privacy-policy" className="text-xs text-muted-foreground hover:text-primary">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="text-xs text-muted-foreground hover:text-primary">Terms of Service</Link>
+            <Link href="/privacy-policy" className="text-xs text-muted-foreground hover:text-primary">Compliance</Link>
           </div>
         </div>
       </div>

@@ -22,6 +22,8 @@ import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, sign
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { useAuth, useFirestore } from "@/firebase";
 import { useToast } from "@/hooks/use-toast";
+import { ConsentCheckbox } from "@/components/consent-checkbox";
+import { isValidNin } from "@/lib/nin";
 
 const fieldClass =
   "h-12 rounded-none border-border bg-card pl-11 font-body text-sm shadow-none focus-visible:border-primary focus-visible:ring-0";
@@ -52,12 +54,22 @@ function DriverSignUpForm() {
   ];
 
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [consented, setConsented] = useState(false);
+  const ninError = formData.nin.length > 0 && !isValidNin(formData.nin) ? "NIN must be exactly 11 digits" : "";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleGoogleSignUp = async () => {
+    if (!consented) {
+      toast({
+        variant: "destructive",
+        title: "Consent Required",
+        description: "Please agree to the Terms of Service and Privacy Policy to continue.",
+      });
+      return;
+    }
     setGoogleLoading(true);
     try {
       const provider = new GoogleAuthProvider();
@@ -73,7 +85,8 @@ function DriverSignUpForm() {
           phoneNumber: user.phoneNumber || "",
           verified: false,
           createdAt: serverTimestamp(),
-          metadata: { state: "", nin: "" },
+          metadata: { state: "", nin: "", ninVerificationStatus: "unsubmitted" },
+          consent: { termsAndPrivacy: true, consentedAt: serverTimestamp() },
         });
       }
 
@@ -95,6 +108,22 @@ function DriverSignUpForm() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!consented) {
+      toast({
+        variant: "destructive",
+        title: "Consent Required",
+        description: "Please agree to the Terms of Service and Privacy Policy to continue.",
+      });
+      return;
+    }
+    if (formData.nin && !isValidNin(formData.nin)) {
+      toast({
+        variant: "destructive",
+        title: "Invalid NIN",
+        description: "Your National Identification Number must be exactly 11 digits.",
+      });
+      return;
+    }
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
@@ -116,6 +145,11 @@ function DriverSignUpForm() {
         metadata: {
           state: formData.state,
           nin: formData.nin,
+          ninVerificationStatus: formData.nin ? "pending" : "unsubmitted",
+        },
+        consent: {
+          termsAndPrivacy: true,
+          consentedAt: serverTimestamp(),
         },
       };
 
@@ -178,14 +212,18 @@ function DriverSignUpForm() {
           <p className="mb-2 font-body text-xs font-bold uppercase tracking-[0.35em] text-primary">
             Driver Registration
           </p>
-          <h1 className="mb-8 font-headline text-3xl text-ink">
+          <h1 className="mb-6 font-headline text-3xl text-ink">
             Join the <span className="italic">institute</span>
           </h1>
+
+          <div className="mb-6 border border-border bg-secondary p-4">
+            <ConsentCheckbox checked={consented} onChange={setConsented} />
+          </div>
 
           <button
             type="button"
             onClick={handleGoogleSignUp}
-            disabled={googleLoading}
+            disabled={googleLoading || !consented}
             className="flex w-full items-center justify-center gap-3 border border-border bg-card py-3.5 font-body text-sm font-bold text-ink transition-colors hover:border-primary disabled:opacity-60"
           >
             {googleLoading ? (
@@ -260,11 +298,20 @@ function DriverSignUpForm() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="nin" className={labelClass}>National ID (NIN)</Label>
+                <Label htmlFor="nin" className={labelClass}>National ID (NIN) — optional</Label>
                 <div className="relative">
                   <ShieldCheck className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input id="nin" placeholder="11-digit NIN" className={fieldClass} value={formData.nin} onChange={handleInputChange} />
+                  <Input
+                    id="nin"
+                    placeholder="11-digit NIN"
+                    inputMode="numeric"
+                    maxLength={11}
+                    className={fieldClass}
+                    value={formData.nin}
+                    onChange={(e) => setFormData({ ...formData, nin: e.target.value.replace(/\D/g, "") })}
+                  />
                 </div>
+                {ninError && <p className="font-body text-xs text-destructive">{ninError}</p>}
               </div>
             </div>
 
@@ -278,7 +325,7 @@ function DriverSignUpForm() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !consented}
               className="flex w-full items-center justify-center gap-2 bg-sage py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark disabled:opacity-60"
             >
               {loading ? (

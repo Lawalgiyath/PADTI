@@ -65,6 +65,7 @@ function DashboardSidebarContent() {
     { title: "All Learners", href: "/dashboard/admin/learners?role=admin", icon: Users },
     { title: "Employer Requests", href: "/dashboard/admin/requests?role=admin", icon: ClipboardList },
     { title: "All Employers", href: "/dashboard/admin/employers?role=admin", icon: Building2 },
+    { title: "NIN Verifications", href: "/dashboard/admin/verifications?role=admin", icon: ShieldCheck },
     { title: "Payments", href: "/dashboard/admin/payments?role=admin", icon: CreditCard },
     { title: "Support Tickets", href: "/dashboard/admin/support?role=admin", icon: LifeBuoy },
     { title: "Inbox", href: "/dashboard/admin/inbox?role=admin", icon: Mail },

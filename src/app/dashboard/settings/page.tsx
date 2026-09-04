@@ -1,16 +1,18 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useUser, useFirestore, useDoc, useMemoFirebase } from "@/firebase";
-import { User, Lock, CreditCard, ShieldCheck, Camera, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { useUser, useFirestore, useStorage, useDoc, useMemoFirebase } from "@/firebase";
+import { User, Lock, CreditCard, ShieldCheck, Camera, Loader2, CheckCircle2, AlertCircle, Clock, XCircle, Eye, EyeOff } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useToast } from "@/hooks/use-toast";
+import { isValidNin, maskNin, type NinVerificationStatus } from "@/lib/nin";
 
 const tabTriggerClass =
   "flex items-center gap-2 rounded-none border-b-2 border-transparent px-4 py-3 font-body text-sm font-bold uppercase tracking-wide data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:shadow-none";
@@ -21,39 +23,89 @@ function SettingsContent() {
   const defaultTab = searchParams.get("tab") || "profile";
   const { user } = useUser();
   const db = useFirestore();
+  const storage = useStorage();
   const { toast } = useToast();
 
   const [loading, setLoading] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [phone, setPhone] = useState("");
   const [nin, setNin] = useState("");
+  const [ninStatus, setNinStatus] = useState<NinVerificationStatus>("unsubmitted");
+  const [ninRevealed, setNinRevealed] = useState(false);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const userDocRef = useMemoFirebase(() => (user ? doc(db, "users", user.uid) : null), [db, user]);
   const { data: profile, loading: profileLoading } = useDoc(userDocRef);
+
+  const originalNin = profile?.metadata?.nin || "";
 
   useEffect(() => {
     if (profile) {
       setDisplayName(profile.displayName || user?.displayName || "");
       setPhone(profile.phoneNumber || "");
       setNin(profile.metadata?.nin || "");
+      setNinStatus(profile.metadata?.ninVerificationStatus || "unsubmitted");
     }
   }, [profile, user]);
+
+  const ninError = nin.length > 0 && !isValidNin(nin) ? "NIN must be exactly 11 digits" : "";
+
+  const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast({ variant: "destructive", title: "Invalid File", description: "Please choose an image file." });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ variant: "destructive", title: "File Too Large", description: "Profile photos must be under 5MB." });
+      return;
+    }
+
+    setUploadingPhoto(true);
+    try {
+      const storageRef = ref(storage, `profile-pictures/${user.uid}/${Date.now()}-${file.name}`);
+      await uploadBytes(storageRef, file);
+      const photoURL = await getDownloadURL(storageRef);
+      await updateProfile(user, { photoURL });
+      await updateDoc(doc(db, "users", user.uid), { photoURL });
+      toast({ title: "Photo Updated", description: "Your profile picture has been saved." });
+    } catch (error: any) {
+      toast({ variant: "destructive", title: "Upload Failed", description: error.message || "Could not upload photo." });
+    } finally {
+      setUploadingPhoto(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
+    if (nin && !isValidNin(nin)) {
+      toast({ variant: "destructive", title: "Invalid NIN", description: "Your NIN must be exactly 11 digits." });
+      return;
+    }
     setLoading(true);
     try {
       await updateProfile(user, { displayName });
+      const ninChanged = nin !== originalNin;
+      const nextStatus: NinVerificationStatus = !nin ? "unsubmitted" : ninChanged ? "pending" : ninStatus;
+
       await updateDoc(doc(db, "users", user.uid), {
         displayName,
         phoneNumber: phone,
         "metadata.nin": nin,
+        "metadata.ninVerificationStatus": nextStatus,
       });
+      setNinStatus(nextStatus);
 
       toast({
         title: "Profile Updated",
-        description: "Your institutional record has been saved successfully.",
+        description: ninChanged && nin
+          ? "Your profile was saved. Your NIN has been submitted for admin verification."
+          : "Your institutional record has been saved successfully.",
       });
     } catch (error: any) {
       toast({
@@ -100,8 +152,20 @@ function SettingsContent() {
                         {(displayName || user?.displayName || "U").substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <button type="button" className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center bg-ink text-cream">
-                      <Camera className="h-4 w-4" />
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handlePhotoSelect}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploadingPhoto}
+                      className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center bg-ink text-cream disabled:opacity-60"
+                    >
+                      {uploadingPhoto ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
                     </button>
                   </div>
                   <div>
@@ -128,7 +192,31 @@ function SettingsContent() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="nin" className="font-body text-xs font-medium text-muted-foreground">National ID (NIN)</Label>
-                    <Input id="nin" value={nin} onChange={(e) => setNin(e.target.value)} placeholder="11-digit number" className={fieldClass} />
+                    <div className="relative">
+                      <Input
+                        id="nin"
+                        type="text"
+                        value={ninRevealed ? nin : nin ? maskNin(nin) : ""}
+                        onFocus={() => setNinRevealed(true)}
+                        onChange={(e) => setNin(e.target.value.replace(/\D/g, "").slice(0, 11))}
+                        inputMode="numeric"
+                        placeholder="11-digit number"
+                        className={`${fieldClass} pr-10`}
+                      />
+                      {nin && (
+                        <button
+                          type="button"
+                          onClick={() => setNinRevealed((v) => !v)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-ink"
+                        >
+                          {ninRevealed ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      )}
+                    </div>
+                    {ninError && <p className="font-body text-xs text-destructive">{ninError}</p>}
+                    <p className="font-body text-xs text-muted-foreground">
+                      Used for identity verification only. Visible to you and PADTI administrators.
+                    </p>
                   </div>
                 </div>
 
@@ -149,25 +237,46 @@ function SettingsContent() {
               </h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 border border-border bg-card p-4">
-                  <div className="bg-primary/10 p-2 text-primary">
-                    <CheckCircle2 className="h-5 w-5" />
+                  <div className={user?.emailVerified ? "bg-primary/10 p-2 text-primary" : "bg-secondary p-2 text-muted-foreground"}>
+                    {user?.emailVerified ? <CheckCircle2 className="h-5 w-5" /> : <AlertCircle className="h-5 w-5" />}
                   </div>
                   <div>
-                    <p className="font-body text-sm font-bold text-ink">Email Verified</p>
-                    <p className="font-body text-[10px] font-bold uppercase text-muted-foreground">Security Checked</p>
+                    <p className="font-body text-sm font-bold text-ink">Email</p>
+                    <p className="font-body text-[10px] font-bold uppercase text-muted-foreground">
+                      {user?.emailVerified ? "Verified" : "Not Verified"}
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 border border-border bg-card p-4 opacity-60">
-                  <div className="bg-accent/10 p-2 text-accent">
-                    <AlertCircle className="h-5 w-5" />
+                <div className="flex items-center gap-4 border border-border bg-card p-4">
+                  <div
+                    className={
+                      ninStatus === "verified"
+                        ? "bg-primary/10 p-2 text-primary"
+                        : ninStatus === "rejected"
+                        ? "bg-destructive/10 p-2 text-destructive"
+                        : ninStatus === "pending"
+                        ? "bg-accent/10 p-2 text-accent"
+                        : "bg-secondary p-2 text-muted-foreground"
+                    }
+                  >
+                    {ninStatus === "verified" && <CheckCircle2 className="h-5 w-5" />}
+                    {ninStatus === "rejected" && <XCircle className="h-5 w-5" />}
+                    {ninStatus === "pending" && <Clock className="h-5 w-5" />}
+                    {ninStatus === "unsubmitted" && <AlertCircle className="h-5 w-5" />}
                   </div>
                   <div>
-                    <p className="font-body text-sm font-bold text-ink">Institutional Audit</p>
-                    <p className="font-body text-[10px] font-bold uppercase text-muted-foreground">Pending Review</p>
+                    <p className="font-body text-sm font-bold text-ink">NIN Verification</p>
+                    <p className="font-body text-[10px] font-bold uppercase text-muted-foreground">
+                      {ninStatus === "verified" && "Verified"}
+                      {ninStatus === "rejected" && "Rejected — resubmit"}
+                      {ninStatus === "pending" && "Pending Admin Review"}
+                      {ninStatus === "unsubmitted" && "Not Submitted"}
+                    </p>
                   </div>
                 </div>
                 <p className="font-body text-xs italic leading-relaxed text-muted-foreground">
-                  &ldquo;Institutional verification is required for full access to the Career Marketplace and verified talent search.&rdquo;
+                  &ldquo;NIN verification is reviewed manually by PADTI administrators and is required for full
+                  access to the Career Marketplace and verified talent search.&rdquo;
                 </p>
               </div>
             </div>

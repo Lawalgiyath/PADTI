@@ -28,6 +28,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { useAuth, useFirestore } from "@/firebase";
 import { useToast } from "@/hooks/use-toast";
+import { ConsentCheckbox } from "@/components/consent-checkbox";
 
 const fieldClass =
   "h-12 rounded-none border-border bg-card pl-11 font-body text-sm shadow-none focus-visible:border-primary focus-visible:ring-0";
@@ -43,6 +44,7 @@ function PartnerSignUpForm() {
   const initialRole = searchParams.get("role") || "employer";
   const [role, setRole] = useState(initialRole);
   const [loading, setLoading] = useState(false);
+  const [consented, setConsented] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -75,6 +77,14 @@ function PartnerSignUpForm() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!consented) {
+      toast({
+        variant: "destructive",
+        title: "Consent Required",
+        description: "Please agree to the Terms of Service and Privacy Policy to continue.",
+      });
+      return;
+    }
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
@@ -98,6 +108,10 @@ function PartnerSignUpForm() {
           regNo: formData.regNo,
           website: formData.website,
           sector: formData.sector,
+        },
+        consent: {
+          termsAndPrivacy: true,
+          consentedAt: serverTimestamp(),
         },
       };
 
@@ -267,9 +281,11 @@ function PartnerSignUpForm() {
               </div>
             </div>
 
+            <ConsentCheckbox checked={consented} onChange={setConsented} />
+
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !consented}
               className="flex w-full items-center justify-center gap-2 bg-sage py-4 font-body text-sm font-bold uppercase tracking-widest text-cream transition-colors hover:bg-sage-dark disabled:opacity-60"
             >
               {loading ? (
