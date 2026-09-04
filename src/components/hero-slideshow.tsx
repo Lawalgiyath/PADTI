@@ -5,13 +5,8 @@ import Image from 'next/image';
 
 const slides = [
   {
-    src: '/images/training/driver-in-cab.jpeg',
-    alt: 'A professional driver at the wheel',
-    focus: 'center 35%',
-  },
-  {
-    src: '/images/training/highway-convoy.jpeg',
-    alt: 'Articulated trucks on the highway',
+    src: '/images/equipment/scania-r-series.jpg',
+    alt: 'Articulated truck on the highway, the class of vehicle PADTI trains drivers to operate',
     focus: 'center 45%',
   },
   {
@@ -20,29 +15,14 @@ const slides = [
     focus: 'center 16%',
   },
   {
-    src: '/images/training/simulator-cockpit.jpeg',
-    alt: 'Trainees on a driving simulator rig',
+    src: '/images/equipment/mercedes-actros.jpg',
+    alt: 'A heavy-duty articulated truck, representative of the fleet PADTI trainees learn to handle',
     focus: 'center 40%',
-  },
-  {
-    src: '/images/training/graduation-handshake.jpeg',
-    alt: 'PADTI graduates receiving their certificates',
-    focus: 'center 45%',
-  },
-  {
-    src: '/images/training/document-signing.jpeg',
-    alt: 'Fleet compliance documentation being reviewed on site',
-    focus: 'center 45%',
   },
   {
     src: '/images/planning-meeting/padti-planning-meeting-02.jpeg',
     alt: 'PADTI leadership in a strategic planning session',
     focus: 'center 25%',
-  },
-  {
-    src: '/images/training/team-group-photo.jpeg',
-    alt: 'The PADTI training team',
-    focus: 'center 55%',
   },
 ];
 
